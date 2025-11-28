@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> About Page </title>
+    <!-- Favicon -->
+    <link rel="icon" href="../../../assets/images/favicon.png"
+      type="image/x-icon" />
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet">
+
+    <link href="../../../assets/css/bootstrap.min.css">
+    <!-- Animate CSS -->
+    <link href="../../../assets/vendors/animate/animate.css">
+    <!-- Icon CSS-->
+    <link href="../../../assets/vendors/font-awesome/css/font-awesome.min.css">
+    <!-- Camera Slider -->
+    <link href="../../../assets/vendors/camera-slider/camera.css">
+    <!-- Owlcarousel CSS-->
+    <link type="text/css"
+      href="../../../assets/vendors/owl_carousel/owl.carousel.css" media="all">
+    <!--Template Styles CSS-->
+    <link type="text/css" href="../../../assets/css/style.css" media="all" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+      rel="stylesheet">
+  </head>
+  <body id="top" style="background-color: white;">
+    <div class="about-bg-banner-img">
+      <div class="overlay-all ">
+        <!-- Header_Area -->
+        <!-- header
+               ================================================== -->
+        <header class="s-header">
+         <app-navbar></app-navbar>
+        </header>
+
+        <!-- end s-header -->
+        <!-- End Header_Area -->
+        <!-- #banner start -->
+        <section id="banner" class="py_120">
+          <div class="container">
+            <div class="col-md-7 d-flex align-items-center">
+              <div class="profile-image-container position-relative mr-3">
+                <!-- Affichage de la photo de profil -->
+                <img
+                  [src]="user.photo ? 'http://localhost:3000/uploads/' + user.photo : '../../../assets/images/avatar-1'"
+                  alt="Profile Photo"
+                  class="profile-image rounded-circle border border-2 border-secondary">
+
+                <!-- Icône de caméra pour changer la photo -->
+                <label for="fileInput" class="camera-icon">
+                  <i class="fas fa-camera"></i>
+                </label>
+
+                <!-- Input pour sélectionner une nouvelle photo -->
+                <input type="file" id="fileInput" (change)="onFileSelected($event)" style="display: none;">
+              </div>
+
+
+              <div class="d-flex flex-column align-items-start">
+                <h2 class="user-name text-dark" style="color: white !important; margin-left: 15px !important;">
+                  {{user.nom}} {{user.prenom}}
+                </h2>
+                <p class="user-role text-muted" style="color: white !important; margin-left: 15px !important;">
+                  {{user.role}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <div class="container-fluid p0 banner-shap-img">
+        </div>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="profile-grid ">
+        <!-- Profile Card -->
+        <div class="card profile-card shadow-lg border-0 rounded-3">
+          <div class="card-header  text-white text-center py-4 rounded-t-3" style="background-color: #7ca9d7 !important;">
+
+            <h4 class="card-title mb-0">Profile</h4>
+            <div class="social-links mt-3">
+              <a href="#" class="btn btn-outline-light btn-icon mx-2" aria-label="Facebook">
+                <i class="bi bi-facebook"></i>
+              </a>
+              <a href="#" class="btn btn-outline-light btn-icon mx-2" aria-label="Twitter">
+                <i class="bi bi-twitter"></i>
+              </a>
+              <a href="#" class="btn btn-outline-light btn-icon mx-2" aria-label="LinkedIn">
+                <i class="bi bi-linkedin"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="card-body p-4">
+            <hr class="my-4">
+
+            <div class="user-info">
+              <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-globe text-primary me-3 fs-4"></i>
+                <span class="fw-semibold">{{user.Langue}}</span>
+              </div>
+              <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-telephone text-success me-3 fs-4"></i>
+                <span class="fw-semibold">{{user.phone}}</span>
+              </div>
+              <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-building text-info me-3 fs-4"></i>
+                <span class="fw-semibold">{{user.organisation}}</span>
+              </div>
+              <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-briefcase text-warning me-3 fs-4"></i>
+                <span class="fw-semibold">{{user.poste}}</span>
+              </div>
+              <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-geo-alt text-danger me-3 fs-4"></i>
+                <span class="fw-semibold">{{user.adresse}}</span>
+              </div>
+            </div>
+
+            <hr class="my-4">
+            <button mat-raised-button  color="primary" class="button" type="submit" (click)="openEditDialog()" >Modifier </button>
+          </div>
+        </div>
+
+
+        <!-- Main Content Area -->
+        <div class="container mt-4">
+          <!-- Statistiques en cartes -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card shadow-sm stat-card">
+                <div class="card-body d-flex align-items-center">
+                  <i class="bi bi-mortarboard-fill text-primary fs-1 me-3"></i>
+                  <div>
+                    <h6 class="mb-0 text-muted">Formations Complétées</h6>
+                    <h4 class="fw-bold">{{userFormations.length}}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card shadow-sm stat-card">
+                <div class="card-body d-flex align-items-center">
+                  <i class="bi bi-star-fill text-warning fs-1 me-3"></i>
+                  <div>
+                    <h6 class="mb-0 text-muted">Note Moyenne</h6>
+                    <h4 class="fw-bold"></h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Onglets Bootstrap -->
+          <ul class="nav nav-tabs mt-4" id="profilTabs">
+            <li class="nav-item" *ngFor="let item of menuItems">
+              <a class="nav-link" [class.active]="selectedItem === item" (click)="selectItem(item)" style="color: #7a7878 !important;">
+                {{ item }}
+              </a>
+            </li>
+          </ul>
+
+          <!-- Contenu des onglets -->
+          <div class="tab-content mt-3">
+            <div *ngIf="selectedItem === 'Formation'" class="row g-2">
+              <div *ngFor="let userFormation of userFormations" class="col-6 col-sm-4 col-md-3 col-lg-2 position-relative"> <!-- Added position-relative -->
+
+                <!-- Crown for top-rated formations (example: if total > 80%) -->
+
+                <div class="card formation-card shadow-sm h-100" (click)="consulterCard(userFormation.formation._id)"> <!-- Changé h-500 en h-100 -->
+                  <div *ngIf="calculateFormationTotal(userFormation) > 80"
+                    class="position-absolute top-0 start-50 translate-middle-x crown-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="gold">
+                      <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
+                    </svg>
+               </div>
+                  <div class="card-body p-2 text-center d-flex flex-column">
+                    <!-- Badge de statut -->
+                    <div class="position-absolute end-0 top-0 m-1">
+                      <span class="badge rounded-pill small"
+                            [ngClass]="{
+                              'bg-success': userFormation.status === 'completed',
+                              'bg-primary': userFormation.status === 'in_progress'
+                            }">
+                        {{ userFormation.status === 'completed' ? 'Terminé' : 'En cours' }}
+                      </span>
+                    </div>
+
+                    <!-- Icône -->
+                    <div class="mb-1 flex-grow-1 d-flex align-items-center justify-content-center">
+                      <img [src]="userFormation.formation?.photo"
+                           class="profile-image border-secondary"
+                           style="width: 80px !important; height: 70px !important; border-radius: 10px !important;">
+                    </div>
+
+                    <!-- Titre -->
+                    <h6 class="mt-1 mb-1 fw-bold" style="font-size: 0.8rem;">
+                      {{ userFormation.formation?.titre | truncate:30 }}
+                    </h6>
+
+                    <!-- Description -->
+                    <p class="text-muted mb-0 small" style="font-size: 0.65rem; line-height: 1.2;">
+                      {{ userFormation.formation?.description | truncate:50 }}
+                    </p>
+
+                    <!-- Barre de progression et total des notes -->
+                    <div class="mt-2">
+                      <div class="progress" style="height: 4px;">
+                        <div class="progress-bar"
+                             [ngClass]="{
+                               'bg-success': userFormation.progress === 100,
+                               'bg-primary': userFormation.progress < 100
+                             }"
+                             [style.width]="userFormation.progress + '%'">
+                        </div>
+                      </div>
+                    <!-- Affichage des résultats -->
+          <div class="text-end x-small mt-1" style="font-size: 0.6rem;">
+            <!-- Affiche la somme totale des notes des quiz -->
+            Total notes: {{ calculateFormationTotal(userFormation).toFixed(0)|| 0 }} %
+
+            <!-- Affiche le nombre de quiz complétés -->
+            <div *ngIf="userFormation.quizes?.length > 0">
+              Quiz complétés: {{ userFormation.quizes.length }}
+            </div>
+          </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+            <!--Quiz-->
+
+            <div *ngIf="selectedItem === 'Quiz'" class="row">
+              <!-- Ajout d'une vérification pour userFormations.quizes -->
+              <ng-container *ngIf="userFormations">
+                <!-- Utilisation de col-md-3 pour avoir 4 cartes par ligne sur les écrans moyens et plus grands -->
+                <div *ngFor="let userFormation of userFormations" class="col-12 col-sm-6 col-md-3 mb-3">
+                  <!-- Vérification que userFormation.quizes existe -->
+                  <div *ngIf="userFormation.quizes && userFormation.quizes.length > 0">
+                    <div *ngFor="let quiz of userFormation.quizes" class="card formation-card shadow-sm h-100">
+                      <div class="card-body p-2 text-center d-flex flex-column">
+                        <h6 class="mt-1 mb-1 fw-bold" style="font-size: 0.8rem;">
+                          {{ quiz.titre | truncate:30 }}
+                        </h6>
+
+                        <p class="text-muted mb-0 small" style="font-size: 0.65rem; line-height: 1.2;">
+                          Note: {{ (quiz.noteObtenue || 0).toFixed(0) }}%
+                        </p>
+
+                        <div class="mt-2">
+                          <div class="progress" style="height: 4px;">
+                            <div class="progress-bar"
+                                 [ngClass]="{
+                                   'bg-success': quiz.noteObtenue === 100,
+                                   'bg-primary': quiz.noteObtenue < 100
+                                 }"
+                                 [style.width]="(quiz.noteObtenue || 0) + '%'">
+                            </div>
+                          </div>
+                          <div class="text-end x-small mt-1" style="font-size: 0.6rem;">
+                            {{ (quiz.noteObtenue || 0).toFixed(0) }}% complété
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+
+            <!--Avis-->
+            <div *ngIf="selectedItem === 'Avis'" class="container-fluid py-3">
+              <!-- En-tête -->
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="h4 mb-0">
+                  <i class="fas fa-comments me-2 text-primary"></i>Gestion des Avis
+                </h2>
+                <span class="badge bg-primary rounded-pill">
+                  {{ userAvis.length || 0 }} avis
+                </span>
+              </div>
+
+              <!-- Message de chargement -->
+              <div *ngIf="!userAvis" class="text-center py-5">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                  <span class="visually-hidden">Chargement...</span>
+                </div>
+                <p class="mt-3 text-muted">Chargement des avis en cours...</p>
+              </div>
+
+              <!-- Message si aucun avis -->
+              <div *ngIf="userAvis?.length === 0" class="text-center py-5 bg-light rounded-3">
+                <i class="far fa-comment-slash display-5 text-muted mb-3"></i>
+                <h3 class="h5">Aucun avis disponible</h3>
+                <p class="text-muted">Cet utilisateur n'a pas encore posté d'avis.</p>
+              </div>
+
+              <!-- Liste des avis -->
+              <div *ngIf="userAvis && userAvis.length > 0"  class="row g-4">
+                <div *ngFor="let avis of userAvis" class="col-12 col-md-6 col-xl-4">
+                  <div class="card h-100 border-0 shadow-sm hover-shadow transition-all">
+                    <div class="card-header bg-white border-0 pb-0 d-flex justify-content-between align-items-center">
+                      <!-- Note sous forme d'étoiles (horizontales) -->
+                      <div class="d-flex align-items-center">
+                        <div class="star-rating d-flex">
+                          <span *ngFor="let star of [1,2,3,4,5]">
+                            <i class="fas fa-star mx-1" [ngClass]="{
+                              'text-warning': star <= avis.evaluation,
+                              'text-light': star > avis.evaluation
+                            }" style="font-size: 0.9rem;"></i>
+                          </span>
+                        </div>
+                        <span class="ms-2 small fw-bold">{{ avis.evaluation }}/5</span>
+                      </div>
+
+                      <!-- Bouton de suppression plus petit -->
+                      <button class="btn btn-sm btn-outline-danger p-1" (click)="confirmDelete(avis._id)"
+                              style="width: 24px; height: 24px; line-height: 1;">
+                        <i class="far fa-trash-alt" style="font-size: 0.7rem;"></i>
+                      </button>
+                    </div>
+
+                    <div class="card-body pt-2">
+                      <!-- Commentaire -->
+                      <div class="mb-3">
+                        <p class="card-text fst-italic">"{{ avis.commentaire }}"</p>
+                      </div>
+
+                      <!-- Métadonnées -->
+                      <div class="d-flex justify-content-between align-items-center">
+                        <!-- Date -->
+                        <span class="badge bg-light text-dark">
+                          <i class="far fa-clock me-1"></i>
+                          {{ avis.dateCreation | date:'dd/MM/yyyy' }}
+                        </span>
+
+                        <!-- Statut -->
+                        <span class="badge" [ngClass]="{
+                          'bg-success': avis.statut === 'approuve',
+                          'bg-warning': avis.statut !== 'approuve'
+                        }">
+                          <i class="fas" [ngClass]="{
+                            'fa-check-circle': avis.statut === 'approuve',
+                            'fa-clock': avis.statut !== 'approuve'
+                          }"></i>
+                          {{ avis.statut === 'approuve' ? 'Approuvé' : 'En attente' }}
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Footer avec infos navigateur -->
+                    <div class="card-footer bg-transparent border-0 pt-0">
+                      <p class="text-muted small mb-0">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Posté via {{ avis.metadonnees?.navigateur | truncate:25 }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal de confirmation de suppression -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header border-0">
+                    <h5 class="modal-title text-danger">
+                      <i class="fas fa-exclamation-triangle me-2"></i>Confirmer la suppression
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body py-4">
+                    <p>Êtes-vous sûr de vouloir supprimer cet avis ? Cette action est irréversible.</p>
+                  </div>
+                  <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                      <i class="fas fa-times me-1"></i>Annuler
+                    </button>
+                    <button type="button" class="btn btn-danger" (click)="deleteAvis()" data-bs-dismiss="modal">
+                      <i class="fas fa-trash-alt me-1"></i>Supprimer
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Autres contenus -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!--#End Our testimonial Area -->
+    <!--#Our-Team-text start -->
+
+    <!--#Our-Team-text End -->
+    <!--#Our Partners Area -->
+
+    <!--#start Our footer Area -->
+  <app-footer></app-footer>
+    <!-- /.hero__overlay -->
+    <!-- jQuery JS -->
+    <script src="../../../assets/js/jquery-1.12.0.min.js"></script>
+    <script src="../../../assets/vendors/popup/lightbox.min.js"></script>
+    <script type="text/javascript">
+         $(document).ready(function() {
+         $("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
+           e.preventDefault();
+           $(this).siblings('a.active').removeClass("active");
+           $(this).addClass("active");
+           var index = $(this).index();
+           $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+           $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+         });
+         });
+      </script>
+    <script type="text/javascript">
+         $(document).ready(function(){
+           $(".currency_year").hide();
+             $("#radio1").click(function(){
+                 $(".currency_year").hide();
+                 $(".currency_month").show();
+             });
+             $("#radio2").click(function(){
+                 $(".currency_month").hide();
+                 $(".currency_year").show();
+             });
+         });
+
+          $('.tabs_label').click(function(){
+                      $('.tabs_label').removeClass('active_t');
+                      $(this).addClass('active_t');
+
+                  })
+
+      </script>
+    <script type="text/javascript">
+         $(document).ready(function () {
+             $('#sidebarCollapse').on('click', function () {
+                 $('#sidebar').toggleClass('active');
+                 $(this).toggleClass('active');
+             });
+         });
+      </script>
+    <!-- Bootstrap JS -->
+    <script src="../../../assets/js/bootstrap.min.js"></script>
+    <!-- Animate JS -->
+    <script src="../../../assets/vendors/animate/wow.min.js"></script>
+    <script src="../../../assets/vendors/sidebar/main.js"></script>
+    <!-- Owlcarousel JS -->
+    <script
+      src="../../../assets/vendors/owl_carousel/owl.carousel.min.js"></script>
+    <!-- Stellar JS-->
+    <!-- Theme JS -->
+    <script src="../../../assets/js/theme.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+# === Angular CLI cache ===
+.angular/
+
+# === Node deps ===
+node_modules/
+
+# === Build output ===
+dist/
+
+# === Editor/IDE stuff ===
+.vscode/
+.idea/
+
+# === Logs ===
+*.log
+
+# === OS junk (Windows + OneDrive) ===
+Thumbs.db
+desktop.ini
+
+# === Temporary Angular files ===
+*.temp
+*.tmp
+
+# === (Optional) Ignore lockfile — uncomment if you don’t want it tracked ===
+# package-lock.json

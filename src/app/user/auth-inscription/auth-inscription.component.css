@@ -1,0 +1,250 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #98bcdb, #ebeff0);
+  padding: 20px;
+}
+
+.container {
+  display: flex;
+  max-width: 800px; /* Réduit la largeur du conteneur */
+  width: 100%;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 10px;
+  flex-wrap: wrap;
+  margin: 0 ;
+}
+
+.login-card {
+  width: 55%; /* Réduit la largeur de la carte */
+  padding: 30px; /* Réduit le padding */
+  display: flex;
+  height: 50%;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background: white;
+  box-sizing: border-box;
+}
+.image-container {
+  width: 45%; /* Réduit la largeur de l'image */
+  background: url('https://via.placeholder.com/600') no-repeat center center/cover;
+  border-radius: 15px;
+
+}
+
+.login-logo {
+  text-align: center;
+  margin-bottom: 15px; /* Réduit la marge */
+}
+
+.login-logo img {
+  width: 80px; /* Réduit la taille du logo */
+  margin-bottom: 8px;
+}
+
+.login-logo h2 {
+  font-size: 24px; /* Réduit la taille du titre */
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 12px; /* Réduit la marge */
+}
+
+p {
+  font-size: 14px; /* Réduit la taille du texte */
+  color: #555;
+  margin-bottom: 20px; /* Réduit la marge */
+  text-align: center;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 15px; /* Réduit la marge entre les champs */
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px; /* Réduit la marge du groupe de boutons */
+}
+
+button {
+  background: linear-gradient(to right, #6391c2, #0056b3);
+  color: #fff;
+  border: none;
+  padding: 12px 24px; /* Réduit le padding des boutons */
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  font-size: 14px; /* Réduit la taille de la police des boutons */
+  font-weight: 600;
+}
+
+button:hover {
+  background: linear-gradient(to right, #0056b3, #6391c2);
+  transform: translateY(-2px);
+}
+
+button[disabled] {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.file-input {
+  margin-bottom: 15px; /* Réduit la marge de l'input file */
+}
+
+.file-input label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.file-input input[type="file"] {
+  display: none;
+}
+
+.file-input .custom-file-upload {
+  border: 2px dashed #007bff;
+  padding: 10px;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #007bff;
+  transition: background-color 0.3s ease;
+}
+
+.file-input .custom-file-upload:hover {
+  background-color: #f0f8ff;
+}
+
+.login-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px; /* Réduit l'espace entre les champs */
+  text-align: left;
+}
+
+.input-group {
+  width: 100%;
+}
+
+.input-group label {
+  display: block;
+  font-size: 12px; /* Réduit la taille de la police des labels */
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.custom-mat-form-field {
+  width: 100%;
+  font-size: 13px; /* Ajuster la taille du texte */
+}
+
+.custom-mat-form-field .mat-form-field-outline {
+  border-color: #0056b3 !important; /* Changer la couleur de la bordure */
+  border-width: 1px; /* Réduire l'épaisseur de la bordure */
+  border-radius: 8px; /* Arrondir les coins */
+  transition: all 0.3s ease; /* Transition fluide */
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 8px; /* Réduit le padding des champs */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px; /* Réduit la taille de la police des champs */
+  color: #333;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 8px rgba(0, 86, 179, 0.4);
+
+}
+
+.error-message {
+  color: #b33b3b;
+  font-size: 1px; /* Réduit la taille du texte d'erreur */
+  margin-top: 5px;
+}
+
+.login-btn, .submit-btn {
+  padding: 10px; /* Réduit le padding des boutons */
+  font-size: 14px; /* Réduit la taille de la police des boutons */
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 48%;
+}
+
+.login-btn {
+  background: transparent;
+  color: #0056b3;
+  border: 2px solid #0056b3;
+}
+
+.login-btn:hover {
+  background: #0056b3;
+  color: white;
+}
+
+.submit-btn {
+  background: #0056b3;
+  color: white;
+}
+
+.submit-btn:hover {
+  background: #004085;
+}
+
+.forgot-password {
+  color: #0056b3 !important;
+  font-size: 12px; /* Réduit la taille du texte pour mot de passe oublié */
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.forgot-password:hover {
+  color: #004085;
+}
+
+@media (max-width: 768px) {
+  .container {
+      flex-direction: column;
+  }
+  .button-group {
+      flex-direction: column;
+  }
+  .image-container {
+      height: 250px;
+  }
+  .login-form {
+      grid-template-columns: 1fr;
+  }
+  .submit-btn,
+  .login-btn {
+      width: 100%;
+
+  }
+}

@@ -1,0 +1,262 @@
+/* Styles pour les cartes de cours */
+.course-card {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 30px;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.course-image img {
+  width: 100%;
+  height: 150px; /* Taille réduite pour une carte plus compacte */
+  object-fit: cover;
+}
+
+.course-content {
+  padding: 15px;
+}
+
+.course-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #666;
+}
+
+.course-meta span {
+  display: flex;
+  align-items: center;
+}
+
+.course-meta i {
+  margin-right: 5px;
+  font-size: 14px;
+}
+
+.course-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.course-description {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.course-button {
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #3c546e;
+
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.course-button:hover {
+  background-color: #0056b3;
+}
+/* Pagination moderne améliorée */
+.pagination-modern {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.pagination-modern ul {
+  list-style: none;
+  padding: 5px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8); /* Fond semi-transparent */
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée */
+  backdrop-filter: blur(10px); /* Effet de flou */
+}
+
+.pagination-modern ul li {
+  margin: 0 5px;
+}
+
+.pagination-modern ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #3c546e;
+  background-color: #e0e0e0;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.pagination-modern ul li a:hover,
+.pagination-modern ul li a.active {
+  background-color: #007bff;
+  color: #ffffff;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); /* Ombre au survol */
+}
+
+.pagination-modern ul li a.prev,
+.pagination-modern ul li a.next {
+  background-color: #d9d9d9;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination-modern ul li a.prev::before {
+  content: '←'; /* Icône précédent */
+}
+
+.pagination-modern ul li a.next::before {
+  content: '→'; /* Icône suivant */
+}
+
+.pagination-modern ul li a.prev:hover,
+.pagination-modern ul li a.next:hover {
+  background-color: #007bff;
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+/* Styles pour le modal */
+.responsive_video {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+.description-text {
+  font-size: 14px;
+  color: #f7f4f4;
+  padding: 10px;
+  text-align: justify;
+  font-weight: bold;
+}
+
+.btn_text_cap {
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+}
+
+.video_top_h {
+  font-size: 24px;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.left-tabs-text-2 {
+  font-size: 16px;
+  color: #fcfafa;
+  margin-bottom: 10px;
+}
+
+/* Empêche le scroll horizontal */
+html, body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.course-area {
+  overflow: hidden;
+}
+
+/* Conteneur de pagination bien centré */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-modern {
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+/* Style pour flouter l'arrière-plan */
+body.modal-open {
+  overflow: hidden; /* Empêche le défilement de la page */
+}
+
+body.modal-open .modal-backdrop {
+  backdrop-filter: blur(5px); /* Applique un flou à l'arrière-plan */
+  background-color: rgba(0, 0, 0, 0.5); /* Assombrit l'arrière-plan */
+}
+
+/* Style pour le modal */
+.modal-content {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+:host {
+  display: block;
+  background-color: #fff; /* ou votre couleur de fond souhaitée */
+}
+.search-filter-container {
+  padding: 1rem 0;
+  margin-bottom: 1.5rem;
+}
+
+.input-group {
+  height: 100%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.input-group-text {
+  border-right: none;
+  padding: 0.675rem 1rem;
+}
+
+.form-control, .form-select {
+  border-left: none;
+  padding: 0.675rem 1rem;
+  height: 100%;
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .d-flex {
+    flex-wrap: wrap;
+  }
+
+  .flex-grow-1, .min-width-240 {
+    min-width: 100%;
+  }
+
+  .gap-2 {
+    gap: 0.5rem !important;
+  }
+}

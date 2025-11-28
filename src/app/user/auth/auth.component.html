@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Plateforme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+   * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #98bcdb, #ebeff0);
+  padding: 20px;
+}
+
+.container {
+  display: flex;
+  max-width: 800px; /* Réduit la largeur du conteneur */
+  width: 100%;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 10px;
+  flex-wrap: wrap;
+  margin: 0 ;
+}
+
+.login-card {
+  width: 55%; /* Réduit la largeur de la carte */
+  padding: 30px; /* Réduit le padding */
+  display: flex;
+  height: 50%;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background: white;
+  box-sizing: border-box;
+}
+.image-container {
+  width: 45%; /* Réduit la largeur de l'image */
+  background: url('https://via.placeholder.com/600') no-repeat center center/cover;
+  border-radius: 15px;
+
+}
+
+        .login-logo img {
+            max-width: 100px;
+            margin-bottom: 15px;
+        }
+
+        .login-logo h2 {
+            font-size: 28px;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: left;
+        }
+
+        .button-group {
+            display: flex;
+           margin-left: 70px;
+            gap: 20px;
+
+        }
+        .button {
+          background: linear-gradient(to right, #6391c2, #0056b3);
+          color: white;
+          font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+            .image-container {
+                height: 250px;
+            }
+            .login-form {
+                grid-template-columns: 1fr;
+            }
+            .submit-btn,
+            .login-btn {
+                width: 100%;
+
+            }
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <div class="login-card">
+      <div class="login-logo">
+        <img src="../../../assets/images/logoo1.png" alt="Logo">
+        <h2>Connexion</h2>
+      </div>
+      <p>Bienvenue ! Veuillez remplir le formulaire pour vous connecter.</p>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <!-- Affichage des erreurs -->
+      <div *ngIf="errorMessage" class="alert alert-error">
+  <div class="alert-content">
+    <span class="alert-icon">⚠️</span>
+    <span class="alert-text">{{ errorMessage }}</span>
+  </div>
+  <button class="alert-close" (click)="errorMessage = ''">×</button>
+</div>
+
+
+        <!-- Champ Email -->
+        <mat-form-field appearance="outline">
+          <mat-label>Adresse e-mail</mat-label>
+          <input matInput type="email" id="email" formControlName="email" required>
+
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">L'e-mail est requis.</mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">L'e-mail doit être valide.</mat-error>
+        </mat-form-field>
+
+        <!-- Champ Mot de passe -->
+        <mat-form-field appearance="outline">
+          <mat-label>Mot de passe</mat-label>
+          <input matInput type="password" id="password" formControlName="password" required>
+
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Le mot de passe est requis.</mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">Le mot de passe doit contenir au moins 6 caractères.</mat-error>
+        </mat-form-field>
+
+        <!-- Se souvenir de moi et Mot de passe oublié -->
+        <div class="remember-me">
+          <mat-checkbox formControlName="rememberMe">Se souvenir de moi</mat-checkbox>
+          <a href="/user/ForgetPaswword" class="forgot-password" style="color: #4e7496 !important; margin-left: 10px !important; font-weight: bold;">Mot de passe oublié ?</a>
+        </div>
+
+        <!-- Boutons -->
+        <div class="button-group">
+          <button mat-raised-button  color="primary" class="button" type="submit" [disabled]="loginForm.invalid" style="color: white !important;">Se connecter</button>
+          <button mat-stroked-button color="primary" routerLink="/user/inscription">S'inscrire</button>
+        </div>
+      </form>
+    </div>
+    <div class="image-container" style="background: url('../../../assets/images/back5.png') no-repeat center center/cover !important ;"></div>
+  </div>
+</body>
+</html>

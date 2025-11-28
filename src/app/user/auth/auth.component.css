@@ -1,0 +1,43 @@
+.alert {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fdecea; /* rouge doux */
+  color: #611a15;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.alert-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-icon {
+  font-size: 1.5rem;
+}
+
+.alert-text {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.alert-close {
+  background: none;
+  border: none;
+  color: #611a15;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 16px;
+  transition: color 0.2s ease;
+}
+
+.alert-close:hover {
+  color: #a94442;
+}

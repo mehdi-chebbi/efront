@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Contact Page </title>
+    <!-- Favicon -->
+    <link rel="icon" href="../../../assets/images/favicon.png"
+      type="image/x-icon" />
+    <!-- Bootstrap CSS -->
+    <link href="../../../assets/css/bootstrap.min.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Animate CSS -->
+    <link href="../../../assets/vendors/animate/animate.css">
+    <!-- Icon CSS-->
+    <link href="../../../assets/vendors/font-awesome/css/font-awesome.min.css">
+    <!-- Camera Slider -->
+    <link href="../../../assets/vendors/camera-slider/camera.css">
+    <!-- Owlcarousel CSS-->
+    <link type="text/css"
+      href="../../../assets/vendors/owl_carousel/owl.carousel.css" media="all">
+    <!--Template Styles CSS-->
+    <link type="text/css" href="../../../assets/css/style.css" media="all" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+      rel="stylesheet">
+  </head>
+  <body id="top" style="background-color: rgb(238, 238, 238);" *ngIf="formation">
+    <div class="about-bg-banner-img" >
+      <div class="overlay-all ">
+        <!-- Header_Area -->
+        <!-- header
+               ================================================== -->
+        <header class="s-header ">
+         <app-navbar></app-navbar>
+        </header>
+
+        <!-- end s-header -->
+        <!-- End Header_Area -->
+        <!-- #banner start -->
+        <section
+        id="banner"
+        class="py_120"
+        [ngStyle]="{
+          'background-image': 'url(../../../assets/8.png)',
+          'background-size': 'cover',
+          'background-position': 'center',
+          'background-repeat': 'no-repeat'
+        }">
+
+<div class="container" >
+  <div class="row align-items-center">
+    <!-- Image de la formation -->
+   <div class="col-md-5 text-center" >
+  <img [src]="formation.photo" alt="Formation Image" class="img-fluid rounded-lg shadow" style="max-width: 80%;">
+</div>
+
+    <!-- Barre verticale -->
+    <div class="col-md-1 d-flex justify-content-center">
+      <div class="vertical-divider" style="width: 3px; background-color: #28a745; height: 100%;"></div>
+    </div>
+
+    <!-- Détails de la formation -->
+    <div id="banner-text" class="col-md-6 text-left">
+      <h5 class="formation-title wow fadeInUp" data-wow-delay="0.1s">
+        {{formation.titre}}
+      </h5>
+      <div class="formation-details">
+        <p class="detail-item">
+          <strong>Thématique :</strong> {{formation.thematique}}
+        </p>
+
+        <p class="detail-item">
+          <strong>Formateur :</strong> {{formation.responsable?.nom}}
+        </p>
+        <p class="detail-item">
+          <strong>Departement:</strong> {{formation.departement}}
+        </p>
+
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Card ajoutée à la fin -->
+
+</div>
+
+
+<div class="container-fluid p-0 banner-shap-img">
+</div>
+
+
+        </section>
+        <!--#Our banner-shap- Area -->
+
+        <!--#EndOur banner-shap- Area -->
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card shadow-lg border-0 rounded-lg p-4">
+
+          <div class="d-flex justify-content-around align-items-center" >
+            <!-- Nombre de modules -->
+            <div class="text-center px-3">
+              <h5 class="font-weight-bold">📚 Modules</h5>
+              <p class="text-muted">{{ count() }} Modules</p>
+            </div>
+
+            <!-- Séparateur -->
+            <div class="border-right h-100"></div>
+
+            <!-- Évaluation -->
+            <div class="text-center px-3">
+              <h5 class="font-weight-bold">⭐ Évaluation</h5>
+              <p class="text-warning">4.5/5</p>
+            </div>
+
+            <!-- Séparateur -->
+            <div class="border-right h-100"></div>
+
+            <!-- Durée de la formation -->
+            <div class="text-center px-3">
+              <h5 class="font-weight-bold">⏳ Durée</h5>
+              <p class="text-muted">{{formation.duree}}</p>
+            </div>
+            <div class="text-center px-3">
+              <h5 class="font-weight-bold"> Département</h5>
+              <p class="text-muted">{{formation.departement}}</p>
+            </div>
+
+            <!-- Séparateur -->
+            <div class="border-right h-100" style="color: #333 !important;"></div>
+
+            <!-- Planning flexible -->
+            <div class="text-center px-3">
+              <h5 class="font-weight-bold">📅 Planning</h5>
+              <p class="text-success">cours certifié</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card shadow-lg border-0 rounded-lg p-4">
+
+          <div class="d-flex justify-content-around align-items-center" >
+
+            <div class="text-center px-3">
+
+              <p class="text-success" style="font-size: 14px; color: #333 !important; text-align: justify;"><strong>Description : </strong> {{formation.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- /#banner end -->
+    <!-- #Contact Us Area start -->
+    <section class="formation-section py-5">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xxl-10">
+            <!-- Carte principale -->
+            <div class="formation-card">
+              <div class="row g-4">
+                <!-- Colonne de gauche (Informations) -->
+                <div class="col-lg-4">
+                  <div class="formation-sidebar">
+                    <!-- En-tête -->
+                    <div class="course-header text-center mb-4">
+                      <h2 class="course-title">{{ formation.titre }}</h2>
+
+                    </div>
+
+                    <!-- Métriques du cours -->
+                    <div class="course-metrics card mb-4">
+                      <div class="card-body">
+                        <h5 class="metrics-title"><i class="fas fa-book-open me-2"></i>Détails du cours</h5>
+                        <ul class="metrics-list">
+                          <li>
+                            <i class="fas fa-layer-group metric-icon"></i>
+                            <span class="metric-label">Modules:</span>
+                            <span class="metric-value">{{ formation.modules.length }}</span>
+                          </li>
+                          <li>
+                            <i class="fas fa-question-circle metric-icon"></i>
+                            <span class="metric-label">Quiz:</span>
+                            <span class="metric-value">{{ formation.quiz.length }}</span>
+                          </li>
+                          <li>
+                            <i class="fas fa-certificate metric-icon"></i>
+                            <span class="metric-label">Certification:</span>
+                            <span class="metric-value">Incluse</span>
+                          </li>
+
+                        </ul>
+                      </div>
+                    </div>
+
+                    <!-- Ressources -->
+
+                  </div>
+                </div>
+
+                <!-- Colonne de droite (Modules) -->
+                <div class="col-lg-8">
+                  <div class="course-modules">
+                    <!-- En-tête -->
+                    <div class="modules-header">
+                      <h2 class="modules-title">
+                        <i class="fas fa-list-ul me-2"></i>
+                        Programme de formation
+                      </h2>
+                      <span class="modules-count">{{ formation.modules.length || 0 }} modules</span>
+                    </div>
+
+                    <!-- Liste des modules -->
+                    <div class="modules-accordion">
+                      <div *ngFor="let module of formation.modules" class="module-card">
+                        <div class="module-header" (click)="toggleLecons(module)" [class.active]="selectedModule === module">
+                          <div class="module-title-container">
+                            <div class="module-icon">
+                              <i class="fas fa-book-open"></i>
+                            </div>
+                            <h3 class="module-title">{{ module.titre }}</h3>
+                          </div>
+                          <div class="module-meta">
+                            <span class="lesson-count">{{ module.lecons.length || 0 }} leçons</span>
+                            <i class="fas fa-chevron-down module-toggle"></i>
+                          </div>
+                        </div>
+
+                        <!-- Leçons -->
+                        <div class="module-content" [class.show]="selectedModule === module">
+                          <ul class="lessons-list">
+                            <li *ngFor="let lecon of module.lecons" class="lesson-item">
+                              <div class="lesson-container">
+                                <div class="lesson-icon" [ngClass]="getLessonColor(lecon.type)">
+                                  <i [class]="getLessonIcon(lecon.type)"></i>
+                                </div>
+                                <div class="lesson-details">
+                                  <h4 class="lesson-title">{{ lecon.titre }}</h4>
+                                  <div class="lesson-meta">
+                                    <span class="lesson-duration">
+                                      <i class="far fa-clock"></i> {{ lecon.duree || 'N/A' }} min
+                                    </span>
+                                    <span class="lesson-type">{{ lecon.type }}</span>
+                                  </div>
+                                </div>
+                                <button class="lesson-action-btn">
+                                  <i class="fas fa-play"></i>
+                                </button>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- #Contact Us Area End -->
+    <!-- #Start map  Area -->
+
+    <!-- #End map  Area -->
+    <!--#End Our Partners Area -->
+
+    <!--#start Our footer Area -->
+    <app-footer></app-footer>
+    <!-- /.hero__overlay -->
+    <!-- jQuery JS -->
+    <script src="../../../assets/js/jquery-1.12.0.min.js"></script>
+    <script src="../../../assets/vendors/popup/lightbox.min.js"></script>
+    <script type="text/javascript">
+         $(document).ready(function() {
+         $("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
+           e.preventDefault();
+           $(this).siblings('a.active').removeClass("active");
+           $(this).addClass("active");
+           var index = $(this).index();
+           $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+           $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+         });
+         });
+      </script>
+    <script type="text/javascript">
+         $(document).ready(function(){
+           $(".currency_year").hide();
+             $("#radio1").click(function(){
+                 $(".currency_year").hide();
+                 $(".currency_month").show();
+             });
+             $("#radio2").click(function(){
+                 $(".currency_month").hide();
+                 $(".currency_year").show();
+             });
+         });
+
+          $('.tabs_label').click(function(){
+                      $('.tabs_label').removeClass('active_t');
+                      $(this).addClass('active_t');
+
+                  })
+
+      </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="text/javascript">
+         $(document).ready(function () {
+             $('#sidebarCollapse').on('click', function () {
+                 $('#sidebar').toggleClass('active');
+                 $(this).toggleClass('active');
+             });
+         });
+      </script>
+    <!-- Bootstrap JS -->
+    <script src="../../../assets/js/bootstrap.min.js"></script>
+    <!-- Animate JS -->
+    <script src="../../../assets/vendors/animate/wow.min.js"></script>
+    <script src="../../../assets/vendors/sidebar/main.js"></script>
+    <!-- Owlcarousel JS -->
+    <script
+      src="../../../assets/vendors/owl_carousel/owl.carousel.min.js"></script>
+    <!-- Stellar JS-->
+    <!-- Theme JS -->
+    <script src="../../../assets/js/theme.min.js"></script>
+  </body>
+</html>

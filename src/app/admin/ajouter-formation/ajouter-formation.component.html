@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76"
+      href="../../../assets1/img/apple-icon.png">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="../../../assets1/img/favicon.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <title>
+      Argon Dashboard 3 by Creative Tim
+    </title>
+    <!--     Fonts and icons     -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" />
+    <!-- Nucleo Icons -->
+    <link
+      href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" />
+    <link
+      href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js"
+      crossorigin="anonymous"></script>
+    <!-- CSS Files -->
+    <link id="pagestyle"
+      href="../../../assets1/css/argon-dashboard.css?v=2.1.0" />
+  </head>
+
+  <body class="g-sidenav-show   bg-gray-100">
+    <div class="min-height-200 bg-dark position-absolute"
+    style="width: 1350px; background-image: url('../../../assets/ert.png') ; background-size: cover; "></div>
+      <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+        <app-asid-back></app-asid-back>
+      </aside>
+    <main class="main-content position-relative border-radius-lg ">
+      <!-- Navbar -->
+
+      <!-- End Navbar -->
+      <div class="container-fluid py-4">
+        <div class="row">
+          <div class="col-12">
+
+            <section>
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <!-- Formation Details -->
+                    <div class="formation-details-box margin-30px-top"
+                      style="border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); padding: 40px; background-color: #ffffff;">
+                      <div class="row">
+                        <div
+                          class="col-md-12 d-flex justify-content-between align-items-center mb-3">
+                          <h5
+                            style="font-size: 24px; color: #014a93; font-weight: 600;">Ajouter
+                            une Formation</h5>
+                            <div class="d-flex gap-2">
+                              <button (click)="toggleModuleCard()"
+                                      class="btn btn-outline-primary"
+                                      [hidden]="!formationId">
+                                <i class="fas fa-plus"></i> Ajouter un Module
+                              </button>
+                              <button (click)="toggleModuleCardQuiz()"
+                                      class="btn btn-outline-primary"
+                                      [hidden]="!formationId">
+                                <i class="fas fa-plus"></i> Ajouter un Quiz
+                              </button>
+                            </div>
+
+                        </div>
+                      </div>
+
+                      <!-- Formulaire Formation -->
+                      <form [formGroup]="formationForm" (ngSubmit)="onSubmit()">
+                        <!-- Étape 1 : Informations de base -->
+                        <div [hidden]="step !== 1">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="titre">Titre</label>
+                                <input id="titre" formControlName="titre" class="form-control" />
+                                <div *ngIf="formationForm.get('titre')?.invalid && formationForm.get('titre')?.touched" class="text-danger">
+                                  Le titre est requis
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="thematique">Thématique</label>
+                                <input id="thematique" formControlName="thematique" class="form-control" />
+                                <div *ngIf="formationForm.get('thematique')?.invalid && formationForm.get('thematique')?.touched" class="text-danger">
+                                  La thématique est requise
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Étape 2 : Sélection du département et responsable -->
+                        <div [hidden]="step !== 1" >
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="departement">Département</label>
+                                <select id="departement" formControlName="departement" class="form-control">
+                                  <option value disabled selected>Choisissez un département</option>
+                                  <option value="DivisionSI">Division SI</option>
+                                  <option value="TerreEtBiodiversite">Terre et Biodiversité</option>
+                                  <option value="Climat">Climat</option>
+                                  <option value="VPRC">VP et RC</option>
+                                  <option value="Eau">Eau</option>
+                                </select>
+                                <div *ngIf="formationForm.get('departement')?.invalid && formationForm.get('departement')?.touched" class="text-danger">
+                                  Le département est requis
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="responsable">Responsable</label>
+                                <select id="responsable" formControlName="responsable" class="form-control">
+                                  <option *ngFor="let user of users" [value]="user._id">{{ user.nom }} {{ user.prenom }}</option>
+                                </select>
+                                <div *ngIf="formationForm.get('responsable')?.invalid && formationForm.get('responsable')?.touched" class="text-danger">
+                                  Le responsable est requis
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Étape 3 : Ressources et Photo -->
+                        <div [hidden]="step !== 2 || formationId" >
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="ressource">Ressources (Choisissez 5 ressources au maximum)</label>
+                                <input
+                                  id="ressource"
+                                  type="file"
+                                  class="form-control"
+                                  (change)="onRessourcesSelected($event)"
+                                  multiple
+                                  accept=".pdf,.txt"
+                                />
+                              </div>
+
+                              <!-- Afficher la liste des fichiers sélectionnés -->
+                              <div *ngIf="selectedRessources.length > 0">
+                                <ul>
+                                  <li *ngFor="let file of selectedRessources; let i = index">
+                                    {{ file.name }}
+                                    <button type="button" (click)="removeFile(i)" class="btn btn-link p-0">
+                                      <i class="fas fa-trash-alt" style="color: red; padding: 20px;"></i>
+                                    </button>
+
+                                  </li>
+                                </ul>
+                              </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="photo">Photo</label>
+                                <input id="photo" type="file" class="form-control" (change)="onFileSelected($event)" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Étape 4 : Description et Durée -->
+                        <div [hidden]="step !== 2 || formationId">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="video">video Formation</label>
+                                <input id="video" type="file" class="form-control" (change)="onFileSelectedvideoIntroduction($event)" />
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="duree">Durée</label>
+                                <input id="duree" formControlName="duree" class="form-control" />
+                                <div *ngIf="formationForm.get('duree')?.invalid && formationForm.get('duree')?.touched" class="text-danger">
+                                  La durée est requise
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea id="description" formControlName="description" class="form-control"></textarea>
+                                <div *ngIf="formationForm.get('description')?.invalid && formationForm.get('description')?.touched" class="text-danger">
+                                  La description est requise
+                                </div>
+                              </div>
+
+                            </div>
+
+
+                          </div>
+                        </div>
+
+                        <!-- Boutons de navigation -->
+                        <div class="col-md-12 text-center mt-3 d-flex justify-content-center">
+                          <button type="button" class="btn btn-secondary" (click)="prevStep()" [disabled]="step === 1" [hidden]="formationId" style="margin-right: 10px;" >
+                            Précédent
+                          </button>
+                          <button type="button" class="btn btn-success" (click)="nextStep()" [disabled]="step === 2"  [hidden]="step === 2">
+                            Suivant
+                          </button>
+                          <button type="submit" class="btn btn-success"  [hidden]="step !== 2 || formationId" >
+                            Ajouter la Formation
+                          </button>
+                        </div>
+
+                      </form>
+
+                      <!--Quiz section -->
+
+
+
+
+
+
+
+
+
+
+                      <div *ngIf="isQuizCardVisible" class="container mt-4">
+                        <!-- Formulaire pour le titre du quiz -->
+                        <div *ngIf="quiz" class="mb-4">
+                          <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-heading"></i></span>
+                            <input type="text" [(ngModel)]="quiz.titre" class="form-control" placeholder="Titre du quiz" required />
+                          </div>
+                        </div>
+
+                        <!-- Liste des questions -->
+                        <div *ngIf="quiz?.questions && quiz.questions.length" class="mb-4">
+                          <div *ngFor="let question of quiz.questions; let i = index" class="card mb-3">
+                            <div class="card-body">
+                              <h5 class="card-title">Question {{i + 1}}</h5>
+                              <div class="mb-3">
+                                <label class="form-label">Titre de la question</label>
+                                <div class="input-group">
+                                  <span class="input-group-text"><i class="fas fa-question-circle"></i></span>
+                                  <input type="text" [(ngModel)]="question.text" class="form-control" placeholder="Entrez la question" />
+                                </div>
+                              </div>
+
+                              <!-- Options pour la question -->
+                              <div *ngFor="let option of question.options; let j = index" class="mb-2">
+                                <div class="input-group">
+                                  <span class="input-group-text"><i class="fas fa-list-ul"></i></span>
+                                  <input type="text" [(ngModel)]="question.options[j]" class="form-control" placeholder="Option {{j + 1}}" />
+                                  <!-- Afficher le bouton "Supprimer" uniquement s'il y a plus d'une option -->
+                                  <button *ngIf="question.options.length > 1" type="button" (click)="removeOption(i, j)" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                  </button>
+                                </div>
+                              </div>
+
+                              <!-- Bouton pour ajouter une nouvelle option -->
+                              <button type="button" (click)="addOption(i)" class="btn btn-success mb-3">
+                                <i class="fas fa-plus"></i> Ajouter une option
+                              </button>
+
+                              <!-- Sélectionner l'option correcte -->
+                              <div class="mb-3">
+                                <label for="correctOption" class="form-label">Option correcte</label>
+                                <select [(ngModel)]="question.correctOption" class="form-select">
+                                  <option *ngFor="let option of question.options; let j = index" [value]="j">
+                                    Option {{j + 1}}
+                                  </option>
+                                </select>
+                              </div>
+
+                              <!-- Bouton pour supprimer la question -->
+                              <button type="button" (click)="removeQuestion(i)" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Supprimer la question
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Ajouter une nouvelle question -->
+                        <button type="button" (click)="addQuestion()" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Ajouter une question</button>
+
+                        <!-- Bouton pour soumettre le quiz -->
+                        <button type="button" (click)="submitQuiz()" class="btn btn-success"><i class="fas fa-check"></i> Soumettre le quiz</button>
+                      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      <div *ngIf="message" class="alert alert-info mt-3">{{
+                        message }}</div>
+
+                      <!-- Module Section -->
+                      <div *ngIf="isModuleCardVisible" class="col-md-12 mt-4">
+                        <h4>Ajouter un module à la formation</h4>
+                        <div class="form-group">
+                          <label for="titreModule">Titre du module</label>
+                          <input id="titreModule" [(ngModel)]="titreModule"
+                            class="form-control"
+                            placeholder="Entrez le titre du module">
+                        </div>
+                        <button class="btn btn-success mt-2"
+                          (click)="addModule()">Ajouter le module</button>
+                        <div *ngFor="let module of formation?.modules"
+                          class="module-container mt-3">
+                          <div class="card shadow-sm">
+                            <div
+                              class="card-header bg-light d-flex justify-content-between align-items-center cursor-pointer"
+                              (click)="toggleLecons(module)">
+                              <h5 class="module-title mb-0">{{ module.titre
+                                }}</h5>
+
+                              <!-- Add Lesson Icon Button -->
+                              <button class="btn btn-success btn-sm" (click)="verifL()">
+                                <i class="fas fa-plus"></i> Ajouter une leçon
+                              </button>
+
+                              <span class="toggle-icon">{{ selectedModule ===
+                                module ? '▼' : '►' }}</span>
+
+
+                            </div>
+
+                            <div class="card-body p-0" *ngIf="selectedModule === module && verifLecon">
+                              <form (ngSubmit)="addLecon(module)">
+                                <div class="form-group p-2">
+                                  <label for="leconTitle">Titre de la
+                                    leçon</label>
+                                  <input id="leconTitle"
+                                    [(ngModel)]="newLeconTitle" name="titre"
+                                    class="form-control"
+                                    placeholder="Entrez le titre de la leçon"
+                                    required>
+                                </div>
+
+
+
+                                <div class="form-group p-2">
+                                  <label for="lecondes">Description de la
+                                    leçon</label>
+                                  <textarea id="lecondes"
+                                    [(ngModel)]="newLeconDescription" name="description"
+                                    class="form-control"
+                                    placeholder="Entrez la description de la leçon"
+                                    required></textarea>
+                                </div>
+
+                                <div class="form-group p-2">
+                                  <label for="leconFile">Contenu de la
+                                    leçon</label>
+                                  <input id="leconFile"
+                                    name="file"
+                                    type="file" class="form-control" required (change)="onFileChange($event)">
+                                </div>
+
+
+
+                                <div class="form-group p-2">
+                                  <label for="leconType">Type de leçon</label>
+                                  <select id="leconType"
+                                    [(ngModel)]="newLeconType" name="type"
+                                    class="form-control" required>
+                                    <option value="text">Texte</option>
+                                    <option value="video">Vidéo</option>
+                                    <option value="PDF">PDF</option>
+                                    <option value="PPT">PPT</option>
+                                  </select>
+                                </div>
+
+                                <button type="submit"
+                                  class="btn btn-primary mt-2">Ajouter la
+                                  leçon</button>
+                              </form>
+                            </div>
+                            <div class="card-body p-0"
+                              [ngClass]="{'d-block': selectedModule === module, 'd-none': selectedModule !== module}">
+                              <ul class="list-group list-group-flush">
+                                <li *ngFor="let lecon of module.lecons"
+                                  class="list-group-item lecon-item">
+                                  <a
+                                    class="lecon-link d-block p-1 text-decoration-none"
+                                    href="#">
+                                    <span class="fw-bold"
+                                      style="font-size: 14px !important;"  >Lesson
+                                      : {{ lecon.titre }}</span>
+                                    <span class="badge bg-primary ms-2"  >{{
+                                      lecon.type }} </span>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+        </div>
+
+
+      </div>
+    </main>
+
+    <!--   Core JS Files   -->
+    <script src="../../../assets1/js/core/popper.min.js"></script>
+    <script src="../../../assets1/js/core/bootstrap.min.js"></script>
+    <script src="../../../assets1/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../../../assets1/js/plugins/smooth-scrollbar.min.js"></script>
+    <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="../../../assets1/js/argon-dashboard.min.js?v=2.1.0"></script>
+  </body>
+
+</html>

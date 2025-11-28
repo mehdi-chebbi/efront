@@ -1,0 +1,162 @@
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+.card:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.card {
+  animation: fadeIn 0.5s ease-in-out;
+}
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+.nav-link-text {
+  color: black  !important;
+}
+.navbar-brand-img {
+  display: flex;
+
+  margin-left: 40px;
+}
+/* Effet de survol sur les éléments de la liste */
+.nav-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+}
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 5px;
+  margin: 0 5px;
+}
+
+.icon-button:hover {
+  color: #007bff; /* Change la couleur au survol */
+}
+
+/* Lien actif */
+.nav-link.active {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+}
+
+/* Icônes */
+.icon {
+  transition: transform 0.2s ease-in-out;
+}
+
+.nav-item:hover .icon {
+  transform: scale(1.1);
+}
+
+/* Ombre portée pour le sidebar */
+.sidenav {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item i {
+  color: rgb(28, 32, 32) !important;
+}
+.navbar-nav .nav-link {
+  color: white !important;
+  font-weight: 600;
+  padding: 12px 18px;
+
+  transition: background 0.3s ease-in-out, transform 0.2s;
+  border-radius: 8px;
+}
+
+.navbar-nav .nav-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* Profile Dropdown */
+/* Alignement du dropdown utilisateur */
+.nav-item.dropdown {
+  display: flex;
+  align-items: center;
+}
+
+/* Ajustement du texte et de l'image du dropdown */
+.nav-item.dropdown .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espacement entre l'avatar et le texte */
+  padding: 10px 15px; /* Même padding que les autres éléments */
+}
+
+/* Assurer une bonne hauteur pour l'image */
+.formation-section {
+  padding: 40px 0;
+  background-color: #f8f9fa;
+}
+
+.formation-details-box {
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  background-color: #ffffff;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-radius: 8px;
+}
+
+.modules-title {
+  padding: 20px 0;
+  font-weight: 700;
+  color: #333;
+}
+
+.module-container .card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+}
+
+.module-container .card:hover {
+  transform: scale(1.02);
+}
+
+.card-header {
+  background-color: #f1f1f1;
+  cursor: pointer;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.list-group-item {
+  border: none;
+  padding: 12px;
+}
+
+.lecon-link {
+  text-decoration: none;
+  color: #333;
+}
+
+.lecon-link:hover {
+  color: #007bff;
+}

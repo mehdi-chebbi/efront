@@ -1,0 +1,76 @@
+/* Ajoutez ceci à votre fichier CSS global */
+.avatar {
+  object-fit: cover;
+}
+
+.progress-label {
+  font-size: 0.65rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+.card-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.bg-gradient-success {
+  background: linear-gradient(135deg, #2dce89 0%, #2dcecc 100%);
+}
+
+.bg-gradient-warning {
+  background: linear-gradient(135deg, #fb6340 0%, #fbb140 100%);
+}
+
+.bg-gradient-danger {
+  background: linear-gradient(135deg, #f5365c 0%, #f56036 100%);
+}
+
+/* Ajoutez à votre fichier CSS */
+.rounded-lg {
+  border-radius: 0.75rem !important;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1) !important;
+}
+
+.text-sm {
+  font-size: 0.875rem !important;
+}
+
+.bg-opacity-10 {
+  background-color: rgba(var(--bs-primary-rgb), 0.1) !important;
+}
+/* Dans votre fichier CSS */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #pdfContent, #pdfContent * {
+    visibility: visible;
+  }
+  #pdfContent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+}
+
+/* Style pour le bouton PDF */
+.btn-pdf {
+  background: linear-gradient(135deg, #434343 0%, #000000 100%);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-pdf:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}

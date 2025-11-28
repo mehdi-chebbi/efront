@@ -1,0 +1,26 @@
+<div id="chat-container" role="main" aria-label="Chatbot environnemental Afrique et Sahel" style="background-color: white !important;;">
+  <header id="chat-header" role="banner" >
+    Expert Environnemental - Afrique & Sahel
+  </header>
+
+  <section id="chat-messages" #chatMessages aria-live="polite" aria-relevant="additions"></section>
+
+  <nav class="suggestions" aria-label="Suggestions de questions">
+    <button class="suggestion" (click)="sendSuggestion('Quel est le rôle de l\'OSS ?')" type="button">Rôle de l'OSS</button>
+    <button class="suggestion" (click)="sendSuggestion('Quels sont les défis climatiques au Sahel ?')" type="button">Climat au Sahel</button>
+    <button class="suggestion" (click)="sendSuggestion('Quelles sont les ressources en eau en Afrique ?')" type="button">Ressources en eau</button>
+    <button class="suggestion" (click)="sendSuggestion('Parlez-moi de la biodiversité saharienne')" type="button">Biodiversité</button>
+  </nav>
+
+  <form id="input-area" (submit)="sendMessage()" aria-label="Zone de saisie de message">
+    <input #userInput
+           type="text"
+           id="user-input"
+           placeholder="Posez votre question..."
+           aria-label="Votre question"
+           autocomplete="off"
+           spellcheck="false"
+           (keydown.enter)="sendMessage()" />
+    <button id="send-button" type="submit">Envoyer</button>
+  </form>
+</div>

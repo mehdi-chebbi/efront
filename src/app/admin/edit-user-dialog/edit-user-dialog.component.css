@@ -1,0 +1,85 @@
+/* Styles globaux pour le formulaire */
+.mat-dialog-container {
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.mat-dialog-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.mat-form-field {
+  margin-bottom: 16px;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #ddd;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thicker {
+  color: #3f51b5;
+}
+
+.mat-input-element {
+  color: #333;
+}
+
+.mat-select-value {
+  color: #333;
+}
+
+.mat-button {
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 8px 24px;
+}
+
+.mat-button[disabled] {
+  background-color: #e0e0e0;
+  color: #a0a0a0;
+}
+
+.mat-button:not([disabled]) {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.mat-button:not([disabled]):hover {
+  background-color: #303f9f;
+}
+
+/* Animation pour les champs de formulaire */
+.mat-form-field-appearance-outline .mat-form-field-outline-start,
+.mat-form-field-appearance-outline .mat-form-field-outline-end,
+.mat-form-field-appearance-outline .mat-form-field-outline-gap {
+  transition: all 0.3s ease;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-start,
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-end,
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-gap {
+  border-color: #3f51b5;
+  box-shadow: 0 0 8px rgba(63, 81, 181, 0.3);
+}
+/* Disposition en grille */
+.form-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
