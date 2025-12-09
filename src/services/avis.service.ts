@@ -8,7 +8,7 @@ import { Avis } from 'src/models/Avis.model';
 })
 
 export class AvisService {
-  private apiUrl = 'http://localhost:3000/Avis'; // Remplacez par l'URL de votre API
+  private apiUrl = 'http://192.168.2.138/Avis'; // Remplacez par l'URL de votre API
 
     constructor(private http: HttpClient) { }
 

@@ -224,7 +224,7 @@
 
                           <div class="avatar me-3">
                             <img
-                              [src]="'http://localhost:3000/uploads/'+topic.author.photo|| 'assets/images/default-avatar.png'"
+                              [src]="'http://192.168.2.138/uploads/'+topic.author?.photo|| 'assets/images/default-avatar.png'"
                               class="avatar avatar-sm me-3" alt="User"
                               width="40" height="40">
                           </div>
@@ -291,7 +291,7 @@
                         <div class="d-flex align-items-center">
 
                           <img
-                            [src]="post.author.photo ? 'http://localhost:3000/uploads/' + post.author.photo : '../../../assets/images/avatar-1'"
+                            [src]="post.author?.photo ? 'http://192.168.2.138/uploads/' + post.author?.photo : '../../../assets/images/avatar-1'"
                             class="avatar avatar-sm me-2" width="24" height="24"
                             alt="Photo profil">
 

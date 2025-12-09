@@ -51,7 +51,7 @@
               <div class="profile-image-container position-relative mr-3">
                 <!-- Affichage de la photo de profil -->
                 <img
-                  [src]="user.photo ? 'http://localhost:3000/uploads/' + user.photo : '../../../assets/images/avatar-1'"
+                  [src]="user?.photo ? 'http://192.168.2.138/uploads/' + user?.photo : '../../../assets/images/avatar-1'"
                   alt="Profile Photo"
                   class="profile-image rounded-circle border border-2 border-secondary">
 

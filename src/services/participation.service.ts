@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ParticipationService {
 
-  private apiUrl = 'http://localhost:3000/Participation'; // Remplacez par l'URL de votre backend
+  private apiUrl = 'http://192.168.2.138/Participation'; // Remplacez par l'URL de votre backend
 
   constructor(private http: HttpClient) {}
 

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class QuizService {
-  private apiUrl = 'http://localhost:3000/Quiz'; // Remplacez par l'URL de votre API
+  private apiUrl = 'http://192.168.2.138/Quiz'; // Remplacez par l'URL de votre API
 
   constructor(private http: HttpClient) { }
 

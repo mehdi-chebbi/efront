@@ -9,7 +9,7 @@
         <div class="card-body p-4">
           <form [formGroup]="avisForm" (ngSubmit)="onSubmit()">
             <div class="d-flex align-items-center mb-4">
-              <img   [src]="user?.photo ? 'http://localhost:3000/uploads/' + user?.photo : '../../../assets/images/avatar-1'"
+              <img   [src]="user?.photo ? 'http://192.168.2.137/uploads/' + user?.photo : '../../../assets/images/avatar-1'"
                     class="avatar avatar-sm me-3" width="30" height="30"
                    alt="Utilisateur">
               <div>
@@ -75,7 +75,7 @@
               <!-- Témoignage 1 -->
               <div class="testimonial-item p-4 border-bottom" *ngIf="a.statut =='approuve'">
                 <div class="d-flex align-items-center mb-3">
-                  <img [src]="a.utilisateur?.photo ? 'http://localhost:3000/uploads/' + a.utilisateur?.photo: '../../../assets/images/avatar-1'"
+                  <img [src]="a.utilisateur?.photo ? 'http://192.168.2.137/uploads/' + a.utilisateur?.photo: '../../../assets/images/avatar-1'"
                        alt="Photo utilisateur"
                        class="avatar avatar-sm me-3" width="50" height="50">
                   <div>

@@ -9,8 +9,8 @@ import { io, Socket } from 'socket.io-client';
 export class NotificationService {
 
   private socket: Socket;
-  private readonly uri: string = 'http://localhost:3000';
-  private apiUrl = 'http://localhost:3000/Notif';
+  private readonly uri: string = 'http://192.168.2.138';
+  private apiUrl = 'http://192.168.2.138/Notif';
 
   constructor(private http: HttpClient) {
     this.socket = io(this.uri);

@@ -15,7 +15,7 @@ export interface Certificat {
   providedIn: 'root'
 })
 export class CertificatService {
-  private apiUrl = 'http://localhost:3000/certificats';
+  private apiUrl = 'http://192.168.2.138/certificats';
 
   constructor(private http: HttpClient) {}
 

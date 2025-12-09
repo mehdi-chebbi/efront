@@ -25,7 +25,7 @@ export interface ForumTopic {
   providedIn: 'root'
 })
 export class ForumService {
-  private baseUrl = 'http://localhost:3000/Forum'; // Remplace par l'URL correcte de ton API
+  private baseUrl = 'http://192.168.2.138/Forum'; // Remplace par l'URL correcte de ton API
 
   constructor(private http: HttpClient) {}
 

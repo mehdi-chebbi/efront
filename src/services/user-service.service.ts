@@ -8,7 +8,7 @@ import { User } from 'src/models/user.model';
 })
 export class UserServiceService {
 
-  private apiUrl = 'http://localhost:3000/users';  // L'URL de votre API
+  private apiUrl = 'http://192.168.2.138/users';  // L'URL de votre API
 
   constructor(private http: HttpClient) { }
 
@@ -229,7 +229,7 @@ checkEmailExists(email: string): Observable<boolean> {
          const headers = new HttpHeaders({
            'Authorization': `Bearer ${token}`
          });
-  return this.http.get<boolean>(`http://localhost:3000/users/check-email?email=${email}`,{headers});
+  return this.http.get<boolean>(`http://192.168.2.138/users/check-email?email=${email}`,{headers});
 }
 
 toggleUserStatus(userId: string): Observable<any> {

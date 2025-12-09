@@ -184,7 +184,7 @@
                     <div class="card formation-card"
                       *ngFor="let formation of formations">
                       <img class="card-img-top"
-                        [src]="formation.photo ?  formation.photo : 'assets/images/back10.png'"
+                        [src]="formation?.photo ?  formation?.photo : 'assets/images/back10.png'"
                         alt="Card image cap">
                       <div class="card-body">
                         <h5 class="card-title">{{ formation.titre }}</h5>

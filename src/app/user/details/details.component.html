@@ -58,8 +58,7 @@
   <div class="row align-items-center">
     <!-- Image de la formation -->
    <div class="col-md-5 text-center" >
-  <img [src]="formation.photo" alt="Formation Image" class="img-fluid rounded-lg shadow" style="max-width: 80%;">
-</div>
+<img [src]="formation?.photo || 'assets/images/back10.png'" alt="Formation Image" class="img-fluid rounded-lg shadow" style="max-width: 80%;"></div>
 
     <!-- Barre verticale -->
     <div class="col-md-1 d-flex justify-content-center">

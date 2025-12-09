@@ -6,7 +6,7 @@ import { forkJoin } from 'rxjs';
   providedIn: 'root'
 })
 export class AnalyseSentiementsService {
-  private apiUrl = 'http://127.0.0.1:5001/analyse_sentiment';
+  private apiUrl = 'http://192.168.2.137/analyse_sentiment';
 
   constructor(private http: HttpClient) {}
 

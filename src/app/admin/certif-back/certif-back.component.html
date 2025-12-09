@@ -219,7 +219,7 @@
         <div class="model-thumbnail"
           *ngFor="let model of predefinedModels"
           (click)="loadModel(model)">
-          <img [src]="model.image" alt="Modèle pré-définis" />
+          <img [src]="model?.image" alt="Modèle pré-définis" />
         </div>
       </div>
 
@@ -228,7 +228,7 @@
         <div class="model-thumbnail"
           *ngFor="let model of generatedModels"
           (click)="loadModel(model)">
-          <img [src]="model.image" alt="Modèle généré" />
+          <img [src]="model?.image" alt="Modèle généré" />
         </div>
       </div>
     </div>

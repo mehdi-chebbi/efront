@@ -115,7 +115,7 @@
                 <!-- En-tête de la carte avec avatar -->
                 <div class="card-header bg-gradient-simple text-white text-center pt-4 pb-3" style="background-color: rgb(232, 232, 232) !important;">
                   <div class="position-relative" style="width: fit-content; margin: 0 auto;">
-                   <img [src]="user?.photo ? 'http://localhost:3000/uploads/' + user.photo : '../../../assets/images/avatar-1'"
+                   <img [src]="user?.photo ? 'http://192.168.2.138/uploads/' + user?.photo : '../../../assets/images/avatar-1'"
      class="rounded-circle shadow"
      style="width: 90px; height: 90px; border: 3px solid rgba(255,255,255,0.8);"
      alt="Avatar">
@@ -255,7 +255,7 @@
                               <div class="p-4">
                                 <div class="d-flex">
                                   <div class="flex-shrink-0 me-4">
-                                    <img [src]="formation.formation.photo || '../../../assets/images/avatar-1'"
+                                    <img [src]="formation.formation?.photo || '../../../assets/images/avatar-1'"
                                          class="rounded-lg shadow-sm"
                                          style="width: 100px; height: 70px; object-fit: cover;"
                                          alt="Formation">

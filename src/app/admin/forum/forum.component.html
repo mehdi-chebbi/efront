@@ -74,7 +74,7 @@
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
-                            <img [src]="avis.utilisateur.photo ? 'http://localhost:3000/uploads/' + avis.utilisateur.photo : '../../../assets/images/default-avatar.png'"
+                            <img [src]="avis.utilisateur?.photo ? 'http://192.168.2.138/uploads/' + avis.utilisateur?.photo : '../../../assets/images/default-avatar.png'"
                                  class="avatar avatar-sm me-3" alt="user1">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
@@ -154,7 +154,7 @@
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
-                            <img [src]="topic.author.photo ? 'http://localhost:3000/uploads/' + topic.author.photo : '../../../assets/images/default-avatar.png'"
+                            <img [src]="topic.author?.photo ? 'http://192.168.2.138/uploads/' + topic.author?.photo : '../../../assets/images/default-avatar.png'"
                                  class="avatar avatar-sm me-3" alt="user1">
                           </div>
                           <div class="d-flex flex-column justify-content-center">

@@ -75,7 +75,7 @@
             <li *ngFor="let notif of notifications" class="border-bottom">
               <a class="dropdown-item py-3 px-3 d-flex align-items-start hover-bg-gray-100">
                 <img
-                [src]="notif.image ? 'http://localhost:3000/uploads/' + notif.image : '../../../assets/images/avatar-1'"
+                [src]="notif?.image ? 'http://192.168.2.138/uploads/' + notif?.image : '../../../assets/images/avatar-1'"
                 class="rounded-circle me-3 notification-avatar"
                 alt="Profile image"
               />
@@ -94,7 +94,7 @@
             <li *ngFor="let n of notifA" class="border-bottom">
               <a class="dropdown-item py-3 px-3 d-flex align-items-start hover-bg-gray-100">
                 <img
-                  [src]="n.utilisateur.photo ? 'http://localhost:3000/uploads/' + n.utilisateur.photo: '../../../assets/images/avatar-1'"
+                  [src]="n.utilisateur?.photo ? 'http://192.168.2.138/uploads/' + n.utilisateur?.photo: '../../../assets/images/avatar-1'"
                   class="rounded-circle me-3 notification-avatar"
 
                   alt="Profile image"
@@ -129,8 +129,7 @@
             (click)="toggleUserDropdown($event)"
           >
             <div class="avatar avatar-sm me-2">
-              <img [src]="user.photo ? 'http://localhost:3000/uploads/' + user.photo  : '../../../assets/images/avatar-1'" class="rounded-circle me-1 notification-avatar" alt="Profile">
-            </div>
+<img [src]="user?.photo ? 'http://192.168.2.138/uploads/' + user?.photo  : '../../../assets/images/avatar-1'" class="rounded-circle me-1 notification-avatar" alt="Profile">            </div>
             <span class="d-none d-md-inline">Admin</span>
             <i class="fas fa-caret-down ms-1 d-none d-md-inline"></i>
           </a>

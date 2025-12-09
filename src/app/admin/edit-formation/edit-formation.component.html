@@ -168,7 +168,7 @@
                           <div class="">
                             <label for="photo" class="form-label">Photo</label>
                             <input id="photo" type="file" class="form-control" (change)="onFileSelected($event)" />
-                            <img *ngIf="formation.photo" [src]="formation.photo" alt="Image de formation" class="img-thumbnail mt-2" width="150" />
+                            <img *ngIf="formation?.photo" [src]="formation?.photo" alt="Image de formation" class="img-thumbnail mt-2" width="150" />
                           </div>
 
                           <div class="">

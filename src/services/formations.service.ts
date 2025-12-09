@@ -13,7 +13,7 @@ import { Quiz } from 'src/models/Quiz.model';
   providedIn: 'root'
 })
 export class FormationsService {
- private apiUrl = 'http://localhost:3000/formations';  // L'URL de votre API
+ private apiUrl = 'http://192.168.2.138/formations';  // L'URL de votre API
 
   constructor(private http: HttpClient) {
     pdfjsLib.GlobalWorkerOptions.workerSrc = '../../../assets/pdf.worker.js';
@@ -79,7 +79,7 @@ export class FormationsService {
     const moduleData = { titre };
 
     // Envoi de la requête POST pour ajouter un module à la formation
-    return this.http.post<any>(`http://localhost:3000/modules/AjouterModule/${formationId}`, moduleData,{headers});
+    return this.http.post<any>(`http://192.168.2.138/modules/AjouterModule/${formationId}`, moduleData,{headers});
   }
 
   deleteModule(formationId: any, moduleId: any): Observable<any> {
@@ -90,7 +90,7 @@ export class FormationsService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.delete<any>(`http://localhost:3000/modules/delete/${formationId}/${moduleId}`,{headers});
+    return this.http.delete<any>(`http://192.168.2.138/modules/delete/${formationId}/${moduleId}`,{headers});
   }
 
   updateModule(moduleId: any, titre: string): Observable<any> {
@@ -102,7 +102,7 @@ export class FormationsService {
       'Authorization': `Bearer ${token}`
     });
     const moduleData = { titre };
-    return this.http.put<any>(`http://localhost:3000/modules/update/${moduleId}`, moduleData,{headers});
+    return this.http.put<any>(`http://192.168.2.138/modules/update/${moduleId}`, moduleData,{headers});
   }
 
 
@@ -127,7 +127,7 @@ export class FormationsService {
       formData.append('file', contenu as File); // Ajoute le fichier
     }
     // Envoi des données via POST
-    return this.http.post(`http://localhost:3000/Lecon/AddLecon/${moduleId}`, formData,{headers});
+    return this.http.post(`http://192.168.2.138/Lecon/AddLecon/${moduleId}`, formData,{headers});
   }
 
   deleteFormation(formationId: string): Observable<any> {
@@ -159,7 +159,7 @@ export class FormationsService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.delete<any>(`http://localhost:3000/Lecon/deleteLecon/${moduleId}/${leconId}`,{headers});
+    return this.http.delete<any>(`http://192.168.2.138/Lecon/deleteLecon/${moduleId}/${leconId}`,{headers});
   }
   updateLecon(leconId: any, titre: string, type: string, contenu: any,progres :any): Observable<any> {
       const token = localStorage.getItem('authToken');
@@ -180,7 +180,7 @@ export class FormationsService {
       formData.append('file', contenu);
     }
 
-    return this.http.put<any>(`http://localhost:3000/lecon/updatelecons/${leconId}`, formData,{headers});
+    return this.http.put<any>(`http://192.168.2.138/lecon/updatelecons/${leconId}`, formData,{headers});
   }
 
   getLeconsByModule(moduleId: any): Observable<any> {
@@ -191,7 +191,7 @@ export class FormationsService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<any>(`http://localhost:3000/lecon/getLeconsByModule/${moduleId}`,{headers});
+    return this.http.get<any>(`http://192.168.2.138/lecon/getLeconsByModule/${moduleId}`,{headers});
   }
   getLeconById(moduleId: string, leconId: string): Observable<any> {
       const token = localStorage.getItem('authToken');
@@ -201,7 +201,7 @@ export class FormationsService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<any>(`http://localhost:3000/lecon/${moduleId}/lecons/${leconId}`,{headers});
+    return this.http.get<any>(`http://192.168.2.138/lecon/${moduleId}/lecons/${leconId}`,{headers});
   }
 
   extractTextFromPdf(pdfUrl: string): Promise<string> {
