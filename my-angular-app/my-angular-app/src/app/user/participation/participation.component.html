@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Contact Page </title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="../../../assets/images/favicon.png"
+      type="image/x-icon" />
+    <!-- Bootstrap CSS -->
+    <link href="../../../assets/css/bootstrap.min.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Animate CSS -->
+    <link href="../../../assets/vendors/animate/animate.css">
+    <!-- Icon CSS-->
+    <link href="../../../assets/vendors/font-awesome/css/font-awesome.min.css">
+    <!-- Camera Slider -->
+    <link href="../../../assets/vendors/camera-slider/camera.css">
+    <!-- Owlcarousel CSS-->
+    <link type="text/css"
+      href="../../../assets/vendors/owl_carousel/owl.carousel.css" media="all">
+    <!--Template Styles CSS-->
+    <link type="text/css" href="../../../assets/css/style.css" media="all" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+      rel="stylesheet">
+  </head>
+  <body id="top">
+    <div class="about-bg-banner-img">
+      <div class="overlay-all ">
+        <!-- Header_Area -->
+        <!-- header
+               ================================================== -->
+        <header class="s-header ">
+          <app-navbar></app-navbar>
+        </header>
+
+        <!-- end s-header -->
+        <!-- End Header_Area -->
+        <!-- #banner start -->
+
+        <!--#Our banner-shap- Area -->
+
+        <!--#EndOur banner-shap- Area -->
+      </div>
+    </div>
+
+    <!-- /#banner end -->
+    <!-- #Contact Us Area start -->
+    <section
+      style="background-color: white;" *ngIf="formation">
+      <div class="container-fluid"
+        style="background-color: rgba(255, 255, 255, 0.9); padding: 40px;">
+        <div class="row">
+          <div class="col-lg-12" style="background-color: white;">
+            <!-- Formation Details -->
+            <div class="formation-details-box"
+              style="border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1); padding: 30px;   background-size: cover; ">
+              <div class="row">
+                <div class="col-md-4" *ngIf="formation">
+                  <!-- Affichage des modules et leçons -->
+                  <div *ngFor="let module of formation.modules; let i = index"
+                    class="module-container mb-4">
+                    <div class="card shadow-sm"
+                      style="border-radius: 15px; overflow: hidden;">
+                      <!-- En-tête du module -->
+                      <div
+                        class="card-header bg-light d-flex justify-content-between align-items-center cursor-pointer"
+                        (click)="toggleLecons(module, i)"
+                        style="
+                          padding: 15px 20px;
+                          background-color: #ffffff;
+                          border-bottom: 1px solid #e0e0e0;
+                          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                          transition: all 0.3s ease;
+                        "
+                        [ngClass]="{'active-module': selectedModule === module}">
+                        <!-- Icône de statut (complété ou bloqué) -->
+                        <div style="margin-right: 12px;">
+                          <span *ngIf="isModuleComplete(module._id)">
+                            <i class="fas fa-check-circle"
+                              style="color: #4caf50; font-size: 18px;"></i>
+                          </span>
+                          <span *ngIf="!isModuleComplete(module._id)">
+                            <i class="fas fa-book"
+                              style="color: #52b4ff; font-size: 18px;"></i>
+                          </span>
+                        </div>
+
+                        <!-- Titre du module -->
+                        <h5 class="module-title mb-0"
+                          style="font-size: 16px; color: #424242; font-weight: 500;">
+                          {{ module.titre }}
+                          <p *ngIf="isPreviousModuleCompleted(i)"
+                            style="color: green;">Module disponible</p>
+                          <p *ngIf="!isPreviousModuleCompleted(i)"
+                            style="color: red;">Module verrouillé</p>
+                          <!-- Indicateur pour le dernier module -->
+                          <p
+                            *ngIf="i === formation.modules.length - 1 && isModuleComplete(module._id)"
+                            style="color: #4caf50;">
+                            <i class="fas fa-unlock me-1"></i> Quiz débloqué
+                          </p>
+                        </h5>
+
+                        <!-- Icône de toggle (flèche) -->
+                        <span class="toggle-icon"
+                          style="font-size: 18px; color: #616161; transition: transform 0.3s ease;">
+                          <i
+                            [ngClass]="{'fas fa-chevron-down': selectedModule === module, 'fas fa-chevron-right': selectedModule !== module}"></i>
+                        </span>
+                      </div>
+
+                      <!-- Corps du module (leçons) -->
+                      <div class="card-body p-0"
+                        *ngIf="selectedModule === module && isPreviousModuleCompleted(i)">
+                        <ul class="list-group list-group-flush"
+                          style="list-style-type: none; padding-left: 0;">
+                          <li *ngFor="let lecon of module.lecons"
+                            style="padding: 12px 20px; border-bottom: 1px solid #eee; transition: background-color 0.3s ease;">
+                            <a
+                              style="display: flex; align-items: center; justify-content: space-between; color: #333; text-decoration: none; cursor: pointer;"
+                              (click)="VoirLecon(module._id, lecon._id, lecon)">
+                              <div style="flex: 1;">
+                                <span
+                                  style="font-size: 13px; color: #333; font-weight: 600;">
+                                  Leçon : {{ lecon.titre }}
+                                </span>
+                              </div>
+                              <!-- Icône de statut de la leçon -->
+                              <div
+                                *ngIf="isProgressCompleted(module._id, lecon._id)">
+                                <i class="fas fa-check-circle"
+                                  style="color: #4caf50; font-size: 16px;"></i>
+                              </div>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Section Quiz - Seulement visible si le dernier module est complété -->
+                  <div *ngIf="isLastModuleCompleted()" class="quiz-section">
+                    <h4 class="mb-4 text-dark fw-semibold"
+                      style="font-size: 1.4rem;">Quiz de la formation</h4>
+
+                    <ul class="list-unstyled mb-0">
+                      <li *ngFor="let quiz of quizzes" class="mb-4">
+                        <div class="card border-0 shadow-sm quiz-card"
+                          style="border-radius: 12px; overflow: hidden;">
+                          <!-- Évaluation -->
+                          <div class="card-header bg-white border-bottom-0 p-0">
+                            <div
+                              *ngIf="quizEvaluation.length > 0; else noQuizzes"
+                              class="evaluation-badge">
+                              <div *ngFor="let quizz of quizEvaluation">
+                                <div *ngIf="quiz._id === quizz.quizId"
+                                  class="d-flex align-items-center p-3"
+                                  style="background-color: #f8f9fa;">
+                                  <div class="me-2">
+                                    <span class="fw-medium">Votre score :</span>
+                                  </div>
+                                  <div class="star-rating me-2">
+                                    <span *ngFor="let star of [1,2,3,4,5]">
+                                      <span
+                                        [style.color]="getStarColor(quizz.evaluations)"
+                                        style="font-size: 1.1rem;">
+                                        {{ star <= (quizz.evaluations/ 20) ? '★'
+                                        : '☆' }}
+                                      </span>
+                                    </span>
+                                  </div>
+                                  <span class="badge rounded-pill fw-normal"
+                                    [style.background]="getBadgeColor(quizz.evaluations)"
+                                    style="font-size: 0.8rem; padding: 0.35rem 0.7rem;">
+                                    {{ quizz.evaluations.toFixed(0) }}%
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <ng-template #noQuizzes>
+                              <div class="p-3"
+                                style="background-color: #f8f9fa;">
+                                <span class="text-muted">Aucune évaluation
+                                  disponible</span>
+                              </div>
+                            </ng-template>
+                          </div>
+
+                          <!-- Contenu du quiz -->
+                          <div
+                            class="card-body p-4 d-flex align-items-center quiz-content"
+                            (click)="startQuiz(quiz._id)"
+                            style="cursor: pointer;">
+                            <div class="quiz-icon me-3">
+                              <svg width="32" height="32" viewBox="0 0 24 24"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
+                                  fill="#4285F4" />
+                                <path
+                                  d="M12 6C9.79 6 8 7.79 8 10C8 12.21 9.79 14 12 14C14.21 14 16 12.21 16 10C16 7.79 14.21 6 12 6ZM12 12C10.9 12 10 11.1 10 10C10 8.9 10.9 8 12 8C13.1 8 14 8.9 14 10C14 11.1 13.1 12 12 12Z"
+                                  fill="#4285F4" />
+                                <path
+                                  d="M6.88 17.12C7.36 16.64 8.13 16.64 8.61 17.12C9.09 17.6 9.09 18.37 8.61 18.85C7.65 19.81 6.12 20.24 4.59 19.97C3.06 19.7 1.86 18.5 1.59 16.97C1.32 15.44 1.75 13.91 2.71 12.95C3.19 12.47 3.96 12.47 4.44 12.95C4.92 13.43 4.92 14.2 4.44 14.68C4.06 15.06 3.86 15.65 3.94 16.28C4.02 16.91 4.37 17.46 4.88 17.77C5.39 18.08 6.01 18.12 6.56 17.88C6.67 17.83 6.77 17.77 6.88 17.66C7.36 17.18 7.36 16.6 6.88 17.12Z"
+                                  fill="#34A853" />
+                              </svg>
+                            </div>
+
+                            <div class="flex-grow-1">
+                              <h5 class="mb-1 fw-semibold text-dark">{{
+                                quiz?.titre }}</h5>
+                              <div class="d-flex align-items-center text-muted">
+                                <span class="me-3 small">
+                                  <i class="far fa-question-circle me-1"></i>
+                                  {{ quiz?.questions.length }} questions
+                                </span>
+                                <span class="small">
+                                  <i class="far fa-clock me-1"></i>
+                                  Environ {{ quiz?.questions.length * 0.5 }} min
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="quiz-arrow">
+                              <i class="fas fa-chevron-right text-primary"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                    <div class="total-score-container">
+                      <div class="score-card">
+                        <div class="score-header">
+                          <i class="fas fa-trophy score-icon"></i>
+                          <h3 class="score-title">Votre score global</h3>
+                        </div>
+                        <div class="score-value" [ngClass]="getScoreClass()">
+                         {{ (totaleEvaluation ?? 0).toFixed(0) }}%
+                        </div>
+                        <div class="score-progress">
+                          <div class="progress-bar"
+                            [style.width.%]="totaleEvaluation"></div>
+                        </div>
+                        <div class="score-feedback">
+                          <small>{{ getFeedbackMessage() }}</small>
+                        </div>
+                       <div [hidden]="totaleEvaluation<=80" class="certificate-btn-container">
+  <button
+    routerLink="/certification/{{formationId}}"
+    class="certificate-btn"
+  >
+    <i class="fas fa-award btn-icon"></i>
+    Obtenir le Certificat
+  </button>
+</div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- Message si le quiz n'est pas encore disponible -->
+                  <!-- Message si le quiz n'est pas encore disponible -->
+                  <div
+                    *ngIf="!isLastModuleCompleted() && (formation?.modules?.length || 0) > 0"
+                    class="alert alert-info mt-4">
+                    <i class="fas fa-info-circle me-2"></i> Le quiz sera
+                    disponible une fois que vous aurez complété tous les modules
+                    de la formation.
+                  </div>
+
+                  <h2
+                    style="font-size: 24px; color: #014a93; font-weight: 700; margin-bottom: 30px; padding: 20px 0;">Les
+                    Ressources de la Formation</h2>
+                  <ul>
+                    <li *ngFor="let ressource of formation.ressource">
+                      <a [href]="ressource" target="_blank" download
+                        style="color: #7c7c7c !important;">
+                        <ng-container
+                          *ngIf="ressource.endsWith('.pdf'); else txtIcon">
+                          <i class="fas fa-file-pdf" style="color: red;"></i>
+                        </ng-container>
+                        <ng-template #txtIcon>
+                          <ng-container *ngIf="ressource.endsWith('.txt')">
+                            <i class="fas fa-file-alt"
+                              style="color: blue !important;"></i>
+                          </ng-container>
+                        </ng-template>
+                        {{ ressource.split('/').pop() }}
+                      </a>
+                    </li>
+                  </ul>
+                  <p
+                    *ngIf="formation.ressource && formation.ressource.length === 0"
+                    s>Aucune ressource disponible.</p>
+                </div>
+
+                <div class="col-md-8"
+                  style="background-color: white;">
+
+                  <div *ngIf="currentView === 'formation'; else quizView">
+
+                    <ul
+                      *ngIf="filteredLecons && filteredLecons.length > 0; else noData">
+                      <li *ngFor="let l of filteredLecons">
+
+                        <h2 style="margin: 25px !important;">{{l.titre}}</h2>
+                        <div *ngFor="let p of progresUser">
+                          <div style="margin-left: 40px ;"
+                            *ngIf="p.moduleId == selectedModule._id && p.leconId==l._id ">
+                            <label for="progressBar">Progression :
+                              {{p. totalProgresModule.toFixed(2)}}%
+                              complète</label><br>
+                            <progress
+                              id="progressBar"
+                              [attr.value]="p.totalProgresModule.toFixed(2)"
+                              max="100"
+                              [attr.color]="getProgressColor(p.totalProgresModule)"
+                              style="width: 60%; height: 10px; border-radius: 20px; margin-left: 5px ;"></progress>
+
+                            <span
+                              class="text-lg font-semibold text-gray-700 mt-2">
+                              {{ p. totalProgresModule.toFixed(0) }}% complète
+                            </span>
+
+                          </div>
+                        </div>
+
+                        <style>
+                        progress::-webkit-progress-value {
+                          border-radius: 20px;
+                        }
+                        progress::-webkit-progress-bar {
+                          background-color: #e0e0e0; /* Couleur de fond par défaut */
+                          border-radius: 20px;
+                        }
+                        progress::-moz-progress-bar {
+                          border-radius: 20px;
+                        }
+                      </style>
+
+                        <p
+                          style="margin: 25px !important; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">{{l.description}}</p>
+
+                        <div *ngIf="extractedPdfImages.length">
+                          <img [src]="extractedPdfImages[0]"
+                            alt="Image extraite du PDF"
+                            style="max-width: 100%; height: auto;" />
+                        </div>
+
+                        <div *ngIf="!isPDF(l.contenu) ">
+                          <!-- Affichage normal pour les contenus non-PDF -->
+                          <div
+                            style="margin-left: 70px !important; margin-top: 10px !important;">
+                            <!-- Vérification pour les vidéos -->
+                            <video *ngIf="isVideo(l.contenu)" width="600"
+                              controls>
+                              <source src="{{l.contenu}}" type="video/mp4">
+                              Votre navigateur ne supporte pas la balise vidéo.
+                            </video>
+
+                            <!-- Affichage générique pour autres types de contenu -->
+                            <div *ngIf="!isVideo(l.contenu)">
+                              {{l.contenu}}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="isPDF(l.contenu)">
+
+                          <div
+                            style="margin-left: 70px !important; margin-top: 10px !important;"
+                            >
+                            <div>
+                              <button (click)="previousPage()"
+                                [disabled]="currentPage <= 1"
+                                style="margin-right: 10px; padding: 5px 15px; border-radius: 5px; background-color: #014a93; color: white; border: none;">
+                                Précédent
+                              </button>
+                              <button (click)="nextPage()"
+                                [disabled]="currentPage >= totalPages"
+                                style="padding: 5px 15px; border-radius: 5px; background-color: #014a93; color: white; border: none;">
+                                Suivant
+                              </button>
+                            </div>
+                          </div>
+                          <!-- Ici vous devriez aussi inclure l'affichage des pages du PDF -->
+                        </div>
+
+                        <ng-container
+                          *ngIf="!isProgressCompleted(selectedModule._id, l._id); else coursTermine">
+                          <button
+                            (click)="updateProgress(l, selectedModule._id)"
+                            style="padding: 5px 15px; border-radius: 5px; margin-left: 500px !important; background-color: #bccac0; color: rgb(94, 94, 94); border: none;">
+                            Marquer comme Terminé ✅
+                          </button>
+                        </ng-container>
+
+                        <ng-template #coursTermine>
+                          <span
+                            style="color: green; font-weight: bold; margin-left: 500px">
+                            ✅ Cours Terminé
+                          </span>
+                        </ng-template>
+
+                        <div *ngIf="isLoading">Chargement...</div>
+
+                        <!-- Nouvelle div pour afficher les titres des leçons avec des boutons radio -->
+
+                        <!-- Afficher directement la première leçon -->
+                        <div
+                          *ngIf="selectedModule && selectedModule.lecons.length > 0"
+                          style="margin: 20px ;">
+                          <h3
+                            style="font-size: 18px; color: #014a93; margin-bottom: 12px; font-weight: bold;">Leçons
+                            en cours :</h3>
+
+                          <ul style="list-style-type: none; padding: 0;">
+                            <li *ngFor="let lecon of selectedModule.lecons"
+                              style="font-size: 14px; color: #333; display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #ddd;">
+                              <span style="font-size: 18px;">📖</span> {{
+                              lecon.titre }}
+
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+
+                    </ul>
+                  </div>
+
+                  <ng-template #noData>
+                    <div>
+                      <div class="welcome-container"
+                        style="padding: 40px; font-size: 12px;">
+                        <div class="welcome-card">
+                          <h3 class="welcome-title">🎓 Bienvenue dans votre
+                            formation {{formation.titre}} !</h3>
+                          <p
+                            class="welcome-description">{{formation.description}}</p>
+                          <div class="welcome-instruction">Pour commencer,
+                            veuillez sélectionner le <strong>premier
+                              module</strong>.</div>
+                          <video controls width="100%" autoplay
+                            style="margin-top: 15px;">
+                            <source src="{{formation.videoIntroduction}}"
+                              type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de
+                            vidéos.
+                          </video>
+
+                        </div>
+                        <div class="background-image"></div>
+                      </div>
+                    </div>
+
+                  </ng-template>
+                  <ng-template #quizView>
+                    <div class="quiz-container" style="
+                      padding: 2rem;
+                      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+                      min-height: 100vh;
+                    ">
+                      <div class="quiz-card" style="
+                        max-width: 800px;
+                        margin: 0 auto;
+                        background: white;
+                        border-radius: 16px;
+                        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+                        padding: 2.5rem;
+                        position: relative;
+                        overflow: hidden;
+                      ">
+                        <!-- Bouton retour -->
+                        <button (click)="backToFormation()"
+                          class="btn btn-link text-decoration-none" style="
+                          position: absolute;
+                          top: 1.5rem;
+                          left: 1.5rem;
+                          color: #6c757d;
+                          z-index: 10;
+                        ">
+                          <i class="fas fa-arrow-left me-1"></i> Retour
+                        </button>
+
+                        <!-- En-tête du quiz -->
+                        <div class="quiz-header text-center mb-5"
+                          style="position: relative;">
+                          <div class="quiz-icon" style="
+                            width: 60px;
+                            height: 60px;
+                            background: linear-gradient(135deg, #014a93 0%, #0173d4 100%);
+                            border-radius: 50%;
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin-bottom: 1.5rem;
+                            box-shadow: 0 4px 12px rgba(1, 74, 147, 0.2);
+                          ">
+                            <i class="fas fa-question text-white"
+                              style="font-size: 1.5rem;"></i>
+                          </div>
+
+                          <div class="quiz-result-stars"
+                            *ngIf="hasQuizResult(selectedQuizId)">
+                            <span
+                              *ngFor="let star of getQuizStars(selectedQuizId); let i = index">
+                              <i class="fas fa-star" [class.text-warning]="star"
+                                [class.text-muted]="!star"></i>
+                            </span>
+
+                          </div>
+                          <h3 class="quiz-title" style="
+                            color: #014a93;
+                            font-weight: 700;
+                            margin-bottom: 0.5rem;
+                            font-size: 1.5rem;
+                          ">
+                            {{ getQuizTitle(selectedQuizId) }}
+                          </h3>
+                          <p class="text-muted" style="font-size: 0.9rem;">
+                            <i class="fas fa-list-ol me-1"></i> {{
+                            getQuizQuestionCount(selectedQuizId) }} questions
+                          </p>
+                        </div>
+
+                        <!-- Barre de progression -->
+                        <div class="progress-container mb-4"
+                          *ngIf="selectedQuizId">
+                          <div class="d-flex justify-content-between mb-2">
+                            <small class="text-muted">Progression</small>
+                            <small class="text-primary fw-bold">{{
+                              currentQuestionIndex + 1 }}/{{
+                              getQuizQuestionCount(selectedQuizId) }}</small>
+                          </div>
+                          <div class="progress"
+                            style="height: 6px; border-radius: 3px;">
+                            <div class="progress-bar bg-primary"
+                              role="progressbar"
+                              [style.width.%]="(currentQuestionIndex + 1) / getQuizQuestionCount(selectedQuizId) * 100"
+                              aria-valuenow="50" aria-valuemin="0"
+                              aria-valuemax="100">
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Formulaire du quiz -->
+                        <form (ngSubmit)="submitQuiz()" *ngIf="selectedQuizId">
+                          <!-- Question actuelle -->
+                          <div class="question-container mb-4" style="
+                            padding: 1.5rem;
+                            background: white;
+                            border-radius: 12px;
+                            border: 1px solid #e9ecef;
+                            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+                            transition: all 0.3s ease;
+                          ">
+                            <h5 class="question-text" style="
+                              font-weight: 600;
+                              color: #212529;
+                              margin-bottom: 1.5rem;
+                              font-size: 1.1rem;
+                              line-height: 1.5;
+                            ">
+                              <span class="question-number" style="
+                                display: inline-block;
+                                width: 28px;
+                                height: 28px;
+                                background: #f0f7ff;
+                                color: #014a93;
+                                border-radius: 50%;
+                                text-align: center;
+                                line-height: 28px;
+                                margin-right: 12px;
+                                font-weight: 700;
+                              ">{{ currentQuestionIndex + 1 }}</span>
+                              {{ getCurrentQuestion().text }}
+                            </h5>
+
+                            <!-- Options de réponse -->
+                            <div class="options-list">
+                              <div
+                                *ngFor="let option of getCurrentQuestion().options; let optionIndex = index"
+                                class="mb-3" style="position: relative;">
+                                <input
+                                  class="form-check-input position-absolute"
+                                  type="radio"
+                                  name="question{{currentQuestionIndex}}"
+                                  id="option{{currentQuestionIndex}}-{{optionIndex}}"
+                                  [(ngModel)]="userAnswers[currentQuestionIndex]"
+                                  [value]="optionIndex"
+                                  required
+                                  style="
+                                         opacity: 0;
+                                         width: 100%;
+                                         height: 100%;
+                                         cursor: pointer;
+                                         z-index: 2;
+                                       ">
+
+                                <label
+                                  class="option-label d-flex align-items-center"
+                                  for="option{{currentQuestionIndex}}-{{optionIndex}}"
+                                  [class.option-selected]="userAnswers[currentQuestionIndex] === optionIndex"
+                                  style="
+                                         padding: 1rem 1.25rem;
+                                         border-radius: 8px;
+                                         background: #f8f9fa;
+                                         border: 1px solid #e9ecef;
+                                         cursor: pointer;
+                                         transition: all 0.2s ease;
+                                         position: relative;
+                                         overflow: hidden;
+                                       ">
+                                  <span class="option-letter me-3" style="
+                                    width: 28px;
+                                    height: 28px;
+                                    background: #e9ecef;
+                                    color: #6c757d;
+                                    border-radius: 6px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    font-weight: 600;
+                                    font-size: 0.85rem;
+                                    flex-shrink: 0;
+                                    transition: all 0.2s ease;
+                                  ">
+                                    {{ getOptionLetter(optionIndex) }}
+                                  </span>
+                                  <span class="option-text"
+                                    style="flex-grow: 1;">{{ option }}</span>
+                                  <span class="check-icon ms-2" style="
+                                    opacity: 0;
+                                    color: #014a93;
+                                    transition: all 0.2s ease;
+                                    font-size: 0.9rem;
+                                  ">
+                                    <i class="fas fa-check"></i>
+                                  </span>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Navigation entre questions -->
+                          <div class="d-flex justify-content-between mt-4">
+                            <button type="button"
+                              class="btn btn-outline-secondary"
+                              (click)="previousQuestion()"
+                              [disabled]="currentQuestionIndex === 0"
+                              style="
+                                      padding: 0.5rem 1.25rem;
+                                      border-radius: 8px;
+                                      font-size: 0.9rem;
+                                    ">
+                              <i class="fas fa-chevron-left me-2"></i> Précédent
+                            </button>
+
+                            <button
+                              *ngIf="currentQuestionIndex < getQuizQuestionCount(selectedQuizId) - 1"
+                              type="button" class="btn btn-primary"
+                              (click)="nextQuestion()"
+                              [disabled]="userAnswers[currentQuestionIndex] === undefined"
+                              style="
+                                      padding: 0.5rem 1.5rem;
+                                      border-radius: 8px;
+                                      font-size: 0.9rem;
+                                    ">
+                              Suivant <i class="fas fa-chevron-right ms-2"></i>
+                            </button>
+
+                            <button
+                              *ngIf="currentQuestionIndex === getQuizQuestionCount(selectedQuizId) - 1"
+                              type="submit" class="btn btn-success"
+                              [disabled]="userAnswers[currentQuestionIndex] === undefined"
+                              style="
+                                      padding: 0.5rem 1.5rem;
+                                      border-radius: 8px;
+                                      font-size: 0.9rem;
+                                      background: linear-gradient(135deg, #28a745 0%, #5cb85c 100%);
+                                      border: none;
+                                    ">
+                              <i class="fas fa-paper-plane me-2"></i> Soumettre
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+
+                    <style>
+                      .option-label:hover {
+                        background: #f1f3f5 !important;
+                        border-color: #dee2e6 !important;
+                      }
+
+                      .option-selected {
+                        background: #f0f7ff !important;
+                        border-color: #cfe2ff !important;
+                      }
+
+                      .option-selected .option-letter {
+                        background: #014a93 !important;
+                        color: white !important;
+                      }
+
+                      .option-selected .check-icon {
+                        opacity: 1 !important;
+                        transform: scale(1.1);
+                      }
+
+                      input[type="radio"]:checked + label::before {
+                        content: '';
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        height: 100%;
+                        width: 4px;
+                        background: #014a93;
+                      }
+                    </style>
+                  </ng-template>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- #Contact Us Area End -->
+    <!-- #Start map  Area -->
+
+    <!-- #End map  Area -->
+    <!--#End Our Partners Area -->
+
+    <!--#start Our footer Area -->
+    <app-footer></app-footer>
+    <!-- /.hero__overlay -->
+    <!-- jQuery JS -->
+    <script src="../../../assets/js/jquery-1.12.0.min.js"></script>
+    <script src="../../../assets/vendors/popup/lightbox.min.js"></script>
+    <script type="text/javascript">
+         $(document).ready(function() {
+         $("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
+           e.preventDefault();
+           $(this).siblings('a.active').removeClass("active");
+           $(this).addClass("active");
+           var index = $(this).index();
+           $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+           $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+         });
+         });
+      </script>
+    <script type="text/javascript">
+         $(document).ready(function(){
+           $(".currency_year").hide();
+             $("#radio1").click(function(){
+                 $(".currency_year").hide();
+                 $(".currency_month").show();
+             });
+             $("#radio2").click(function(){
+                 $(".currency_month").hide();
+                 $(".currency_year").show();
+             });
+         });
+
+          $('.tabs_label').click(function(){
+                      $('.tabs_label').removeClass('active_t');
+                      $(this).addClass('active_t');
+
+                  })
+
+      </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="text/javascript">
+         $(document).ready(function () {
+             $('#sidebarCollapse').on('click', function () {
+                 $('#sidebar').toggleClass('active');
+                 $(this).toggleClass('active');
+             });
+         });
+      </script>
+    <!-- Bootstrap JS -->
+    <script src="../../../assets/js/bootstrap.min.js"></script>
+
+    <!-- Animate JS -->
+    <script src="../../../assets/vendors/animate/wow.min.js"></script>
+    <script src="../../../assets/vendors/sidebar/main.js"></script>
+    <!-- Owlcarousel JS -->
+    <script
+      src="../../../assets/vendors/owl_carousel/owl.carousel.min.js"></script>
+    <!-- Stellar JS-->
+    <!-- Theme JS -->
+    <script src="../../../assets/js/theme.min.js"></script>
+  </body>
+</html>

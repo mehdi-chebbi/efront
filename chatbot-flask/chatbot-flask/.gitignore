@@ -1,0 +1,32 @@
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+
+# Logs
+*.log
+
+# Model files
+model/
+
+# Static files (if you don’t want to version them)
+static/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Data files
+*.json
+
+# Editor files
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Misc
+*.pyc
+*.pyo

@@ -1,0 +1,51 @@
+<body style="background-color: white !important;">
+  <div
+    class="certificate"
+    id="element-a-capturer"
+    [ngStyle]="{
+      'background-image': 'url(' + certificat.BackgroundImage + ')',
+      'background-size': 'cover',
+      'background-repeat': 'no-repeat',
+      'background-position': 'center',
+      'width': '1123px',
+      'height': '694px',
+      'position': 'relative'
+    }"
+  >
+    <div class="text-zone">
+      <!-- Références dynamiques -->
+      <div
+        *ngFor="let key of objectKeys(certificat.references)"
+        [ngStyle]="{
+          position: 'absolute',
+          top: certificat.references[key].y + 'px',
+          left: (certificat.references[key].x + decalageX) +30+ 'px',
+          color: 'rgb(80, 80, 80)',
+          fontWeight: 'normal',
+          overflow: 'hidden',
+          whiteSpace: 'pre-wrap',
+
+        }"
+      >
+        {{ certificat.references[key].valeur }}
+
+      </div>
+
+      <!-- Logos dynamiques -->
+      <img
+        *ngFor="let key of objectKeys(certificat.logos)"
+        [src]="certificat.logos[key].url"
+        [alt]="key"
+        [ngStyle]="{
+          position: 'absolute',
+          top: certificat.logos[key].y + 'px',
+          left: certificat.logos[key].x +60+ 'px',
+        }"
+      />
+    </div>
+  </div>
+
+
+
+
+</body>
