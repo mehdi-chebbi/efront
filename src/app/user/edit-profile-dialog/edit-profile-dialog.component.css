@@ -1,0 +1,52 @@
+.dialog-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.input-field, .select-field {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border 0.3s ease-in-out;
+}
+
+.input-field:focus, .select-field:focus {
+  border-color: #5c6bc0;
+  box-shadow: 0 0 5px rgba(92, 107, 192, 0.3);
+}
+
+.mat-form-field {
+  margin-bottom: 20px;
+}
+
+.button-cancel, .button-save {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.button-cancel {
+  background-color: #e57373;
+  color: white;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.button-cancel:hover {
+  background-color: #ef5350;
+}
+
+.button-save {
+  background-color: #5c6bc0;
+  color: white;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.button-save:hover {
+  background-color: #3f51b5;
+}

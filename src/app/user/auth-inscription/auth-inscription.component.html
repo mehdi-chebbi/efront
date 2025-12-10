@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Plateforme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <div class="login-logo">
+                <img src="../../../assets/images/logoo1.png" alt="Logo">
+                <h2>Inscription</h2>
+            </div>
+            <p>Bienvenue ! Veuillez remplir le formulaire <br>pour créer votre compte.</p>
+
+            <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()">
+                <mat-horizontal-stepper [linear]="true" #stepper>
+
+
+                    <mat-step [stepControl]="inscriptionForm.get('nom')!">
+                        <ng-template matStepLabel></ng-template>
+
+                        <mat-form-field appearance="outline" class="custom-mat-form-field" *ngIf="inscriptionForm.get('role')?.value === 'partenaire'">
+                          <mat-label>{{ 'Organisation' | translate }}</mat-label>
+                          <input matInput formControlName="organisation">
+                      </mat-form-field>
+
+                      <mat-form-field appearance="outline" class="custom-mat-form-field">
+                          <mat-label> {{ 'Langue' | translate }}</mat-label>
+                          <mat-select formControlName="Langue" required (selectionChange)="changeLanguage($event.value)">
+
+                              <mat-option value="Fr"> {{ 'Français' | translate }}</mat-option>
+                              <mat-option value="En"> {{ 'Anglais' | translate }}</mat-option>
+                          </mat-select>
+                          <mat-error  style="font-size: 10px !important;" *ngIf="Langue?.hasError('required')"> {{ 'La langue est requise.' | translate }}</mat-error>
+                      </mat-form-field>
+                        <mat-form-field appearance="outline" class="custom-mat-form-field">
+                            <mat-label>{{'Nom' | translate }}</mat-label>
+                            <input matInput formControlName="nom" required>
+                            <mat-error style="font-size: 10px !important;" *ngIf="nom?.hasError('required')"> {{ 'Le nom est requis.' | translate }}</mat-error>
+                            <mat-error style="font-size: 10px !important;" *ngIf="nom?.hasError('pattern')"> {{ 'Le nom ne doit contenir que des lettres et des espaces.'| translate }}</mat-error>
+                        </mat-form-field>
+
+
+
+                        <div class="button-group">
+                            <button mat-button matStepperNext style="margin-left: 110px !important;"> {{ 'Suivant' | translate }} </button>
+                        </div>
+                    </mat-step>
+
+                    <mat-step [stepControl]="inscriptionForm.get('password')!">
+                        <ng-template matStepLabel></ng-template>
+                        <mat-form-field appearance="outline" class="custom-mat-form-field">
+                          <mat-label> {{'Prénom' | translate }}</mat-label>
+                          <input matInput formControlName="prenom" required>
+                          <mat-error style="font-size: 10px !important;" *ngIf="prenom?.hasError('required')">{{ 'Le prénom est requis.' | translate }}</mat-error>
+                          <mat-error style="font-size: 10px !important;" *ngIf="prenom?.hasError('pattern')"> {{ 'Le prénom ne doit contenir que des lettres et des espaces.' | translate }}</mat-error>
+                      </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="custom-mat-form-field" style="margin-top: 12px !important;">
+                            <mat-label> {{ 'Mot de passe' | translate }}</mat-label>
+                            <input matInput formControlName="password" type="password" required>
+                            <mat-error style="font-size: 10px !important;" *ngIf="password?.hasError('required')">Le mot de passe est requis.</mat-error>
+                            <mat-error style="font-size: 10px !important;" *ngIf="password?.hasError('minlength')">Le mot de passe doit comporter au moins 6 caractères.</mat-error>
+                            <mat-error style="font-size: 9px !important;" *ngIf="password?.hasError('pattern')">Le mot de passe doit contenir au moins un chiffre, une majuscule, une minuscule et un caractère spécial.</mat-error>
+                        </mat-form-field>
+
+
+                        <div class="button-group">
+                            <button mat-button matStepperPrevious> {{ 'Retour' | translate }}</button>
+                            <button mat-button matStepperNext> {{ 'Suivant' | translate }}</button>
+                        </div>
+                    </mat-step>
+
+                    <mat-step [stepControl]="inscriptionForm.get('phone')!">
+                        <ng-template matStepLabel></ng-template>
+                        <mat-form-field appearance="outline" class="custom-mat-form-field">
+                            <mat-label>{{ 'Téléphone' | translate }}</mat-label>
+                            <input matInput formControlName="phone" required>
+                            <mat-error style="font-size: 10px !important;" *ngIf="phone?.hasError('required')"> {{ 'Le numéro est requis.' | translate }}</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                          <mat-label>{{ 'Email' | translate }}</mat-label>
+                          <input matInput formControlName="email" type="email" required (blur)="checkEmailUniqueness()">
+
+                          <mat-error style="font-size: 10px !important;" *ngIf="email?.hasError('required')">
+                            {{ "L'email est requis." | translate }}
+                          </mat-error>
+
+                          <mat-error style="font-size: 10px !important;" *ngIf="email?.hasError('email')">
+                            {{ 'Veuillez entrer un email valide.' | translate }}
+                          </mat-error>
+
+                          <mat-error style="font-size: 10px !important;" *ngIf="emailAlreadyExists">
+                            {{ 'Cet email est déjà utilisé.' | translate }}
+                          </mat-error>
+                        </mat-form-field>
+
+
+
+
+
+
+                        <div class="button-group">
+                            <button mat-button matStepperPrevious> {{ 'Retour' | translate }}</button>
+                            <button mat-button matStepperNext> {{ 'Suivant' | translate }}</button>
+                        </div>
+
+
+                    </mat-step>
+
+
+                    <mat-step [stepControl]="inscriptionForm.get('photo')!">
+                      <ng-template matStepLabel></ng-template>
+
+                      <div class="file-input">
+                          <label>{{ 'Photo' | translate }}</label>
+                          <input type="file" id="photo" (change)="onFileSelected($event)" style="display: none;">
+                          <label for="photo" class="custom-file-upload"> {{ 'Choisir une photo' | translate }}</label>
+                      </div>
+
+
+
+                      <div class="button-group">
+                          <button mat-button matStepperPrevious>{{ 'Retour' | translate }}</button>
+                          <button mat-button matStepperNext> {{'Suivant' | translate }}</button>
+                      </div>
+
+
+                  </mat-step>
+
+
+
+
+
+
+                  <mat-step [stepControl]="inscriptionForm.get('role')!">
+                    <ng-template matStepLabel></ng-template>
+
+                    <ng-template matStepLabel></ng-template>
+                    <mat-form-field appearance="outline" class="custom-mat-form-field">
+                        <mat-label> {{ 'apprenant' | translate }}</mat-label>
+                        <mat-select formControlName="role">
+
+                            <mat-option value="apprenant"> {{ 'Interne' | translate }}</mat-option>
+                            <mat-option value="partenaire">{{ 'Externe' | translate }}</mat-option>
+                        </mat-select>
+                        <mat-error style="font-size: 10px !important;" *ngIf="role?.hasError('required')"> {{ 'Le rôle est requis.' | translate }}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="custom-mat-form-field" *ngIf="inscriptionForm.get('role')?.value === 'apprenant' || inscriptionForm.get('role')?.value === 'partenaire'">
+                        <mat-label> {{ 'Poste' | translate }}</mat-label>
+                        <input matInput formControlName="poste">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="custom-mat-form-field" *ngIf=" inscriptionForm.get('role')?.value === 'partenaire'">
+                      <mat-label> {{ 'organisation' | translate }}</mat-label>
+                      <input matInput formControlName="organisation">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="custom-mat-form-field" *ngIf="inscriptionForm.get('role')?.value === 'apprenant'">
+                    <mat-label>{{ 'Département' | translate }}</mat-label>
+                    <mat-select formControlName="departement">
+                        <mat-option value="Terre et Biodiversité"> {{ 'Terre et Biodiversité' | translate }}</mat-option>
+                        <mat-option value="Eau">{{ 'Eau' | translate }}</mat-option>
+                        <mat-option value="VP">{{ 'VP' | translate }}</mat-option>
+                        <mat-option value="Climat"> {{'Climat' | translate }}</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+
+
+                    <div class="button-group">
+                      <button mat-button matStepperPrevious> {{ 'Retour' | translate }}</button>
+                      <button mat-button matStepperNext> {{'Suivant' |  translate }}</button>
+                  </div>
+
+                </mat-step>
+
+
+
+
+
+
+
+
+
+
+
+
+                    <mat-step [stepControl]="inscriptionForm.get('adresse')!" >
+                      <mat-form-field appearance="outline">
+                        <mat-label> {{ 'Adresse' | translate }}</mat-label>
+                        <input matInput formControlName="adresse" required>
+                        <mat-error style="font-size: 10px !important;" *ngIf="adresse?.hasError('required')"> {{"L'adresse est requise." | translate }}</mat-error>
+                    </mat-form-field>
+
+
+
+                        <div class="button-group">
+                            <button mat-button matStepperPrevious> {{ 'Retour' | translate }}</button>
+                            <button mat-button type="submit" [disabled]="inscriptionForm.invalid || isLoading">
+                                {{ isLoading ? 'Inscription en cours...' : 'S’inscrire' }}
+                            </button>
+                        </div>
+                    </mat-step>
+
+
+                </mat-horizontal-stepper>
+            </form>
+        </div>
+        <div class="image-container" style="background: url('../../../assets/images/back/formation4.jpg') no-repeat center center/cover !important;"></div>
+    </div>
+</body>
+</html>

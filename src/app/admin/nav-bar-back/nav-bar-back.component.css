@@ -1,0 +1,29 @@
+.dropdown-menu {
+  z-index: 1050;
+}
+.dropdown-item img {
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
+.notification-avatar {
+  width: 30px;
+  height: 30px; /* Hauteur fixe pour éviter les déformations */
+  object-fit: cover; /* Garantit que l'image couvre bien la zone */
+  border: 2px solid #fff; /* Bordure blanche */
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16); /* Ombre douce */
+  transition: all 0.3s ease; /* Animation fluide */
+}
+
+.notification-avatar:hover {
+  transform: scale(1.05); /* Légère augmentation au survol */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Ombre plus prononcée au survol */
+}
+
+/* Version mobile */
+@media (max-width: 768px) {
+  .notification-avatar {
+    width: 50px;
+    height: 50px;
+  margin-right: 0.5rem !important;
+  }
+}

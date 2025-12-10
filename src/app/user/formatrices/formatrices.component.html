@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> About Page </title>
+    <!-- Favicon -->
+    <link rel="icon" href="../../../assets/images/favicon.png"
+      type="image/x-icon" />
+    <!-- Bootstrap CSS -->
+    <link href="../../../assets/css/bootstrap.min.css">
+    <!-- Animate CSS -->
+    <link href="../../../assets/vendors/animate/animate.css">
+    <!-- Icon CSS-->
+    <link href="../../../assets/vendors/font-awesome/css/font-awesome.min.css">
+    <!-- Camera Slider -->
+    <link href="../../../assets/vendors/camera-slider/camera.css">
+    <!-- Owlcarousel CSS-->
+    <link type="text/css"
+      href="../../../assets/vendors/owl_carousel/owl.carousel.css" media="all">
+    <!--Template Styles CSS-->
+    <link type="text/css" href="../../../assets/css/style.css" media="all" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+      rel="stylesheet">
+  </head>
+  <body id="top" style="background-color: white;">
+    <div class="about-bg-banner-img">
+      <div class="overlay-all ">
+        <!-- Header_Area -->
+        <!-- header
+               ================================================== -->
+        <header class="s-header">
+          <app-navbar></app-navbar>
+        </header>
+
+        <!-- end s-header -->
+        <!-- End Header_Area -->
+        <!-- #banner start -->
+        <section id="banner" class="py_120">
+          <div class="container ">
+            <div class="row">
+              <!-- #banner-text start -->
+              <div id="banner-text" class="col-md-7 text-c text-left ">
+                <h5 class="wow fadeInUp main-h font_30"
+                  data-wow-delay="0.2s">Forum de Discussion et Avis
+
+                </h5>
+
+              </div>
+              <!-- /#banner-text End -->
+            </div>
+          </div>
+        </section>
+        <div class="container-fluid p0 banner-shap-img">
+        </div>
+      </div>
+    </div>
+    <!-- /#banner end -->
+    <!--#Our banner-shap- Area -->
+    <!--#EndOur banner-shap- Area -->
+    <!-- #About Us Area start -->
+
+    <!-- #About Us Area End -->
+
+    <!-- #End video Area start -->
+    <!-- #service Us Area start -->
+    <div id="forum" class="py-5 bg-light"
+      style="background-color: white !important;">
+      <div class="container">
+        <!-- Forum Section -->
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- Header Section -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <h2 class="fw-bold mb-2 text-secondary"
+                  style="color: rgb(79, 114, 165) !important;">Forum de
+                  Discussion</h2>
+                <p class="text-muted mb-0">Échangez avec la communauté et
+                  partagez vos connaissances</p>
+              </div>
+              <button class="btn btn-secondary rounded-pill px-4"
+                (click)="openModal()">
+                <i class="fas fa-plus me-2"></i>Nouveau Sujet
+              </button>
+            </div>
+
+            <!-- Search and Filter Bar -->
+            <div class="card shadow-sm mb-4">
+              <div class="card-body p-3">
+                <div class="row g-3 align-items-center">
+                  <div class="col-md-8">
+                    <div class="input-group">
+                      <span class="input-group-text bg-white border-end-0"
+                        style="width: 40px ; height: 50px; margin-top: 20px;">
+                        <i class="fas fa-search text-muted"></i>
+                      </span>
+                      <input type="text" class="form-control border-start-0"
+                        style="margin-top: 20px;"
+                        placeholder="Rechercher des sujets, questions ou réponses..."
+                        [(ngModel)]="searchQuery"
+                        (keyup.enter)="searchTopics()"
+                        (keyup)="searchQuery === '' && searchTopics()">
+                      <!-- Reset si champ vide -->
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="d-flex">
+                      <select class="form-select flex-grow-1"
+                        [(ngModel)]="sortOption" (change)="sortTopics()">
+                        <option value="newest">Plus récents</option>
+                        <option value="popular">Plus populaires</option>
+                        <option value="unanswered">Sans réponse</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Message d'information sur la recherche -->
+                <div *ngIf="isSearching" class="alert alert-info mt-3">
+                  <div
+                    class="d-flex justify-content-between align-items-center">
+                    <span>
+                      <i class="fas fa-info-circle me-2"></i>
+                      Résultats de recherche pour "{{ searchQuery }}" ({{
+                      topics.length }} résultats)
+                    </span>
+                    <button class="btn btn-sm btn-outline-secondary"
+                      (click)="clearSearch()">
+                      <i class="fas fa-times me-1"></i> Effacer
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Categories Navigation -->
+            <ul class="nav nav-tabs" id="forumTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" [class.active]="activeTab === 'all'"
+                  (click)="changeTab('all')">
+                  <i class="fas fa-list me-1"></i> Tous les sujets
+                  <span class="badge bg-secondary ms-1">{{ originalTopics.length
+                    }}</span>
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link"
+                  [class.active]="activeTab === 'popular'"
+                  (click)="changeTab('popular')">
+                  <i class="fas fa-fire me-1"></i> Populaires
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link"
+                  [class.active]="activeTab === 'unanswered'"
+                  (click)="changeTab('unanswered')">
+                  <i class="fas fa-question-circle me-1"></i> Sans réponse
+                  <span class="badge bg-danger ms-1">
+                    {{ getUnansweredCount() }}
+                  </span>
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" [class.active]="activeTab === 'solved'"
+                  (click)="changeTab('solved')">
+                  <i class="fas fa-check-circle me-1"></i> Résolus
+                  <span class="badge bg-success ms-1">
+                    {{ getSolvedCount() }}
+                  </span>
+                </button>
+              </li>
+            </ul>
+            <!-- Forum Content -->
+            <div class="tab-content" id="forumTabsContent">
+              <!-- All Topics Tab -->
+              <div [class.show.active]="activeTab === 'all'" role="tabpanel">
+                <!-- Topic Cards -->
+                <div class="card mb-3 border-0 shadow-sm-hover"
+                  *ngFor="let topic of paginatedTopics">
+                  <div class="card-body p-4">
+                    <div class="row align-items-center">
+                      <!-- Votes Column -->
+                      <div class="col-md-1 text-center d-none d-md-block">
+                        <div class="d-flex flex-column align-items-center">
+                          <button
+                            class="btn btn-sm btn-outline-primary border-0">
+                            <i class="fas fa-chevron-up"></i>
+                          </button>
+                          <span class="fw-bold my-1"
+                            [class.text-success]="topic.votes > 0"
+                            [class.text-danger]="topic.votes < 0">{{ topic.views
+                            }}</span>
+                          <button
+                            class="btn btn-sm btn-outline-primary border-0">
+                            <i class="fas fa-chevron-down"></i>
+                          </button>
+                          <!-- Bouton Modifier (stylo bleu) -->
+                          <button class="btn btn-sm border-0 text-primary"
+                            (click)="openEditModal(topic)"
+                            [hidden]="topic.author._id != user._id ">
+                            <i class="fas fa-pen"></i>
+                          </button>
+
+                          <!-- Bouton Supprimer (poubelle rouge) -->
+                          <button class="btn btn-sm border-0 text-danger mt-1"
+                            (click)="onDelete(topic)"
+                            [hidden]="topic.author._id != user._id ">
+                            <i class="fas fa-trash"></i>
+                          </button>
+
+                          <!-- MODAL Modifier Topic -->
+
+                        </div>
+                      </div>
+
+                      <!-- Content Column -->
+                      <div class="col-md-8">
+                        <div class="d-flex align-items-start">
+
+                          <div class="avatar me-3">
+                            <img
+                              [src]="'http://192.168.2.139/uploads/'+topic.author.photo|| 'assets/images/default-avatar.png'"
+                              class="avatar avatar-sm me-3" alt="User"
+                              width="40" height="40">
+                          </div>
+                          <div class="flex-grow-1">
+                            <h5 class="mb-1">
+                              <a (mouseenter)="navigateToTopic(topic._id)"
+                                class="text-decoration-none">
+                                {{ topic.title }}
+                                <span *ngIf="topic.isSolved"
+                                  class="badge bg-success ms-2">
+                                  <i class="fas fa-check"></i> Résolu
+                                </span>
+                              </a>
+                            </h5>
+                            <p class="text-muted small mb-2">
+                              Posté par <a href="#" class="text-primary">{{
+                                topic.author.nom }} {{ topic.author.prenom
+                                }}</a>
+                              · {{ topic.createdAt | date:'mediumDate' }}
+                              · <i class="fas fa-eye ms-1"></i> {{ topic.views
+                              }} vues
+                            </p>
+
+                            <p class="text-muted small mb-2"
+                              style="font-weight: bold !important;">
+                              {{ topic.content }}
+
+                            </p>
+                            <div class="mt-2">
+                              <span
+                                class="badge bg-light text-dark me-2 px-2 py-1"
+                                *ngFor="let tag of topic.tags">
+                                <i class="fas fa-tag me-1 text-muted"
+                                  style="font-size: 0.7rem;"></i> {{ tag }}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Stats Column -->
+                      <div class="col-md-3">
+                        <div class="d-flex justify-content-end">
+                          <div class="text-center me-4">
+                            <div class="fw-bold">{{AlltopicsPost[topic._id] &&
+                              AlltopicsPost[topic._id].length || 0 }}</div>
+                            <div class="text-muted small">réponses</div>
+                          </div>
+                          <div class="text-center">
+                            <div class="fw-bold">{{ topic.views }}</div>
+                            <div class="text-muted small">vues</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Recent Posts Preview -->
+                    <div
+                      *ngIf="AlltopicsPost[topic._id] && AlltopicsPost[topic._id].length > 0"
+                      class="mt-3">
+                      <div
+                        *ngFor="let post of AlltopicsPost[topic._id] | slice:0:(showAllPosts ? AlltopicsPost[topic._id].length : 1)"
+                        class="post mb-2 p-2 bg-light rounded">
+                        <div class="d-flex align-items-center">
+
+                          <img
+                            [src]="post.author.photo ? 'http://192.168.2.139/uploads/' + post.author.photo : '../../../assets/images/avatar-1'"
+                            class="avatar avatar-sm me-2" width="24" height="24"
+                            alt="Photo profil">
+
+                          <small class="text-muted">{{post.author.nom}}
+                            {{post.author.prenom}} · {{post.createdAt |
+                            date:'short'}}</small>
+                            <button class="btn btn-sm border-0 text-danger mt-1"
+                            (click)="onDeletePost(topic,post)"
+                            [hidden]="topic.author._id != user._id " style="margin: 15px !important;">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                           <button class="btn btn-sm border-0 text-danger mt-1"
+                            (click)="markAsSolution(topic._id, post._id)"
+                            [hidden]="topic.author._id != user._id " style="margin: 15px !important;">
+                            <i class="fas fa-check"></i>
+                          </button>
+
+
+                        </div>
+                        <p class="mb-0 mt-1 text-truncate">{{post.content}} </p>
+
+                      </div>
+
+
+                      <div
+                        *ngIf="AlltopicsPost[topic._id].length > 1 && !showAllPosts"
+                        class="text-end">
+                        <a (click)="showAllPosts = true"
+                          class="text-primary small"
+                          style="cursor: pointer; size: 4px !important; color: gray !important;">
+                          Voir les {{AlltopicsPost[topic._id].length - 1}}
+                          réponses supplémentaires...
+                        </a>
+                      </div>
+                    </div>
+
+                    <!-- Quick Reply -->
+                    <div class="comment-bar mt-3 pt-3 border-top">
+                      <div class="d-flex align-items-center">
+                        <div class="flex-grow-1 me-2">
+                          <input type="text"
+                            class="form-control form-control-sm"
+                            placeholder="Écrire une réponse rapide..."
+                            [(ngModel)]="newPostContent"
+                            (keyup.enter)="addPost(topic._id)">
+                        </div>
+                        <button type="button" class="btn btn-sm btn-secondary"
+                          (click)="addPost(topic._id)"
+                          [disabled]="!newPostContent">
+                          <i class="far fa-paper-plane me-1"></i> Publier
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Empty State -->
+                <div *ngIf="topics.length === 0"
+                  class="card border-0 shadow-sm">
+                  <div class="card-body text-center py-5">
+                    <i class="fas fa-comments fa-3x text-muted mb-3"></i>
+                    <h4 class="text-muted mb-3">Aucun sujet trouvé</h4>
+                    <p class="text-muted mb-4">Soyez le premier à démarrer une
+                      discussion !</p>
+                    <button class="btn btn-secondary rounded-pill px-4"
+                      (click)="openModal()">
+                      <i class="fas fa-plus me-2"></i>Créer un sujet
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Other Tabs -->
+              <div class="tab-pane fade"
+                [class.show.active]="activeTab === 'popular'" role="tabpanel">
+                <!-- Popular Topics Content -->
+              </div>
+
+              <div class="tab-pane fade"
+                [class.show.active]="activeTab === 'unanswered'"
+                role="tabpanel">
+                <!-- Unanswered Topics Content -->
+              </div>
+            </div>
+
+            <!-- Pagination -->
+            <!-- Pagination -->
+            <!-- Pagination -->
+            <nav aria-label="Forum pagination" class="mt-4"
+              *ngIf="topics.length > itemsPerPage">
+              <ul class="pagination justify-content-center">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="changePage(currentPage - 1)"
+                    aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+
+                <li class="page-item" *ngFor="let page of getPages()"
+                  [class.active]="page === currentPage">
+                  <a class="page-link" (click)="changePage(page)">{{ page }}</a>
+                </li>
+
+                <li class="page-item"
+                  [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="changePage(currentPage + 1)"
+                    aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Topic Modal -->
+    <div class="modal fade" [class.show]="isModalOpen"
+      [style.display]="isModalOpen ? 'block' : 'none'"
+      id="newTopicModal" tabindex="-1" aria-hidden="true" role="dialog">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+          <div class="modal-header bg-secondary text-white"
+            style="background-color: rgb(109, 152, 212) !important;">
+            <h5 class="modal-title"><i
+                class="fas fa-plus-circle me-2"></i>Nouveau sujet de
+              discussion</h5>
+            <button type="button" class="btn-close btn-close-white"
+              (click)="closeModal()" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4">
+            <form [formGroup]="newTopicForm">
+              <div class="mb-4">
+                <label for="topicTitle" class="form-label fw-semibold">Titre du
+                  sujet</label>
+                <input type="text" class="form-control py-2" id="topicTitle"
+                  formControlName="title"
+                  placeholder="Donnez un titre clair à votre question ou discussion">
+                <small class="text-muted">Un bon titre aide les autres à trouver
+                  votre question</small>
+              </div>
+
+              <div class=" mb-4">
+
+                <label for="topicTags"
+                  class="form-label fw-semibold">Tags</label>
+                <input type="text" class="form-control py-2" id="topicTags"
+                  formControlName="tags"
+                  placeholder="python, exercice, chapitre3">
+                <small class="text-muted">Séparez les tags par des virgules (max
+                  5 tags)</small>
+
+              </div>
+
+              <div class="mb-4">
+                <label for="topicContent" class="form-label fw-semibold">Contenu
+                  détaillé</label>
+                <div class="border rounded p-2 bg-light">
+
+                  <textarea class="form-control border-0" id="topicContent"
+                    rows="8" formControlName="content"
+                    placeholder="Décrivez votre question ou discussion en détail..."></textarea>
+                </div>
+                <div class="d-flex justify-content-between mt-2">
+
+                  <small class="text-muted">{{
+                    newTopicForm.get('content')?.value?.length || 0 }}/2000
+                    caractères</small>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary"
+              (click)="closeModal()">Annuler</button>
+            <button type="button" class="btn btn-primary"
+              (click)="createTopic()" [disabled]="!newTopicForm.valid">
+              <i class="fas fa-paper-plane me-2"></i>Publier le sujet
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--#End service-text  -->
+    <div class="modal fade" #editModal id="editTopicModal" tabindex="-1"
+      aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h5 class="modal-title" id="editTopicModalLabel">Modifier le
+              sujet</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"
+              aria-label="Fermer"></button>
+          </div>
+
+          <div class="modal-body">
+            <form (ngSubmit)="updateTopic()" #editForm="ngForm">
+              <div class="mb-3">
+                <label for="title" class="form-label">Titre</label>
+                <input type="text" id="title" class="form-control"
+                  [(ngModel)]="selectedTopic.title" name="title" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="content" class="form-label">Contenu</label>
+                <textarea id="content" class="form-control"
+                  [(ngModel)]="selectedTopic.content" name="content" rows="4"
+                  required></textarea>
+              </div>
+
+              <div class="text-end">
+                <button type="submit" class="btn btn-success"
+                  [disabled]="!editForm.form.valid">Enregistrer</button>
+                <button type="button" class="btn btn-secondary ms-2"
+                  data-bs-dismiss="modal">Annuler</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!--#Our Testimonial Area start-->
+    <div>
+      <h2 class="fw-bold mb-2 text-primary"
+        style="margin-left: 120px;  color: rgb(79, 114, 165) !important;">Avis
+        Utilisateur</h2>
+      <p class="text-muted mb-0" style="margin-left: 120px;">Donnez Votre Avis
+        et partagez vos connaissances</p>
+      <app-avis></app-avis>
+    </div>
+    <!--#start Our footer Area -->
+    <app-footer></app-footer>
+    <!--#End Our footer Area -->
+    <!-- The following is only needed when the video is in the html
+         otherwise the who .hero__overlay html can be removed -->
+    <div class="hero__overlay">
+      <div class="hero__modal">
+        <a class="hero__close" href="#">Close</a>
+        <iframe allowscriptaccess="always" id="hero-video" class="hero__player"
+          src="https://www.youtube.com/embed/1NSA8ycGfKg?enablejsapi=1&html5=1"
+          frameborder="0" webkitallowfullscreen mozallowfullscreen
+          allowfullscreen></iframe>
+      </div>
+      <!-- /.hero__modal -->
+    </div>
+    <!-- /.hero__overlay -->
+    <!-- jQuery JS -->
+    <script src="../../../assets/js/jquery-1.12.0.min.js"></script>
+    <script src="../../../assets/vendors/popup/lightbox.min.js"></script>
+    <script type="text/javascript">
+         $(document).ready(function() {
+         $("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
+           e.preventDefault();
+           $(this).siblings('a.active').removeClass("active");
+           $(this).addClass("active");
+           var index = $(this).index();
+           $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+           $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+         });
+         });
+      </script>
+    <script type="text/javascript">
+         $(document).ready(function(){
+           $(".currency_year").hide();
+             $("#radio1").click(function(){
+                 $(".currency_year").hide();
+                 $(".currency_month").show();
+             });
+             $("#radio2").click(function(){
+                 $(".currency_month").hide();
+                 $(".currency_year").show();
+             });
+         });
+
+          $('.tabs_label').click(function(){
+                      $('.tabs_label').removeClass('active_t');
+                      $(this).addClass('active_t');
+
+                  })
+
+      </script>
+    <script type="text/javascript">
+         $(document).ready(function () {
+             $('#sidebarCollapse').on('click', function () {
+                 $('#sidebar').toggleClass('active');
+                 $(this).toggleClass('active');
+             });
+         });
+      </script>
+    <!-- Bootstrap JS -->
+    <script src="../../../assets/js/bootstrap.min.js"></script>
+    <!-- Animate JS -->
+    <script src="../../../assets/vendors/animate/wow.min.js"></script>
+    <script src="../../../assets/vendors/sidebar/main.js"></script>
+    <!-- Owlcarousel JS -->
+    <script
+      src="../../../assets/vendors/owl_carousel/owl.carousel.min.js"></script>
+    <!-- Stellar JS-->
+    <!-- Theme JS -->
+    <script src="../../../assets/js/theme.min.js"></script>
+  </body>
+</html>

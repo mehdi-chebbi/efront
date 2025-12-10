@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>Modifier le profil</h2>
+<mat-dialog-content>
+  <form [formGroup]="editForm">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Nom</mat-label>
+      <input matInput formControlName="nom" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Prénom</mat-label>
+      <input matInput formControlName="prenom" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" required>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Langue</mat-label>
+      <mat-select formControlName="Langue">
+        <mat-option value="Fr">Français</mat-option>
+        <mat-option value="En">Anglais</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Téléphone</mat-label>
+      <input matInput formControlName="phone">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Organisation</mat-label>
+      <input matInput formControlName="organisation">
+    </mat-form-field>
+
+
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Poste</mat-label>
+      <input matInput formControlName="poste">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Adresse</mat-label>
+      <input matInput formControlName="adresse">
+    </mat-form-field>
+
+
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Département</mat-label>
+      <mat-select formControlName="departement">
+        <mat-option value="Terre et Biodiversité">Terre et
+          Biodiversité</mat-option>
+        <mat-option value="Eau">Eau</mat-option>
+        <mat-option value="VP">VP</mat-option>
+        <mat-option value="Climat">Climat</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Annuler</button>
+  <button mat-button color="primary" (click)="updateUser()">Enregistrer</button>
+</mat-dialog-actions>

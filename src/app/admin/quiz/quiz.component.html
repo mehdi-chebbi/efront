@@ -1,0 +1,198 @@
+
+<!--
+=========================================================
+* Argon Dashboard 3 - v2.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+* Copyright 2024 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76"
+      href="../../../assets1/img/apple-icon.png">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="../../../assets1/img/favicon.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <title>
+      Argon Dashboard 3 by Creative Tim
+    </title>
+    <!--     Fonts and icons     -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" />
+    <!-- Nucleo Icons -->
+    <link
+      href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" />
+    <link
+      href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js"
+      crossorigin="anonymous"></script>
+    <!-- CSS Files -->
+    <link id="pagestyle"
+      href="../../../assets1/css/argon-dashboard.css?v=2.1.0" />
+  </head>
+
+  <body class="g-sidenav-show   bg-gray-100">
+    <div class="min-height-200 bg-dark position-absolute c"
+    style="width: 1350px; background-image: url('../../../assets/tyu.jpg'); background-size: cover;"></div>
+    <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+      <app-asid-back></app-asid-back>
+    </aside>
+    <main class="main-content position-relative border-radius-lg ">
+      <!-- Navbar -->
+      <nav
+        class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl "
+        id="navbarBlur" data-scroll="false">
+       <app-nav-bar-back></app-nav-bar-back>
+      </nav>
+      <!-- End Navbar -->
+      <div class="container py-4 card mb-4" style="background-color: white !important; margin-left: 25px !important;">
+        <div class="row" style="padding: 15px !important;"  >
+          <div class="col-12">
+
+            <section>
+              <div class="row container " style="padding: 15px !important;"  >
+                <div class="col-12"   >
+                  <h4 style="padding: 12px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Ajouter un Quiz</h4>
+                  <div class="card mb-4">
+
+                    <div class="card-body px-0 pt-0 pb-2">
+
+                  <div  class="container mt-4">
+                    <!-- Formulaire pour le titre du quiz -->
+                    <div *ngIf="quiz" class="mb-4">
+                      <div class="input-group">
+                        <span class="input-group-text"><i
+                            class="fas fa-heading"></i></span>
+                        <input type="text" [(ngModel)]="quiz.titre"
+                          class="form-control" placeholder="Titre du quiz"
+                          required />
+                      </div>
+                    </div>
+
+                    <!-- Liste des questions -->
+                    <div *ngIf="quiz?.questions && quiz.questions.length"
+                      class="mb-4">
+                      <div
+                        *ngFor="let question of quiz.questions; let i = index"
+                        class="card mb-3">
+                        <div class="card-body">
+                          <h5 class="card-title">Question {{i + 1}}</h5>
+                          <div class="mb-3">
+                            <label class="form-label">Titre de la
+                              question</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i
+                                  class="fas fa-question-circle"></i></span>
+                              <input type="text" [(ngModel)]="question.text"
+                                class="form-control"
+                                placeholder="Entrez la question" />
+                            </div>
+                          </div>
+
+                          <!-- Options pour la question -->
+                          <div *ngFor="let option of question.options; let j = index; trackBy: trackByIndex" class="mb-2">
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="fas fa-list-ul"></i></span>
+                              <input type="text"
+                                     [(ngModel)]="question.options[j]"
+                                     class="form-control"
+                                     placeholder="Option {{j + 1}}" />
+                              <button *ngIf="question.options.length > 1"
+                                      type="button" (click)="removeOption(i, j)"
+                                      class="btn btn-danger">
+                                <i class="fas fa-trash"></i>
+                              </button>
+                            </div>
+                          </div>
+
+
+                          <!-- Bouton pour ajouter une nouvelle option -->
+                          <button type="button" (click)="addOption(i)"
+                            class="btn btn-success mb-3">
+                            <i class="fas fa-plus"></i> Ajouter une option
+                          </button>
+
+                          <!-- Sélectionner l'option correcte -->
+                          <div class="mb-3">
+                            <label for="correctOption" class="form-label">Option
+                              correcte</label>
+                            <select [(ngModel)]="question.correctOption"
+                              class="form-select">
+                              <option
+                                *ngFor="let option of question.options; let j = index"
+                                [value]="j">
+                                Option {{j + 1}}
+                              </option>
+                            </select>
+                          </div>
+
+                          <!-- Bouton pour supprimer la question -->
+                          <button type="button" (click)="removeQuestion(i)"
+                            class="btn btn-simple" style="background-color: brown; color: aliceblue;">
+                            <i class="fas fa-trash"></i> Supprimer la question
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Ajouter une nouvelle question -->
+                    <button type="button" (click)="addQuestion()"
+                      class="btn btn-simple mb-3" style="background-color: rgb(91, 125, 141); color: aliceblue; margin-right: 10px;"><i class="fas fa-plus"></i>
+                      Ajouter une question</button>
+
+                    <!-- Bouton pour soumettre le quiz -->
+                    <button type="button" (click)="submitQuiz()"
+                      class="btn btn-success"><i class="fas fa-check"></i>
+                      Soumettre le quiz</button>
+                  </div>
+
+                </div>
+              </div>
+             </div>
+             </div>
+            </section>
+
+          </div>
+        </div>
+
+           </div>
+           </main>
+
+    <!--   Core JS Files   -->
+    <script src="../../../assets1/js/core/popper.min.js"></script>
+    <script src="../../../assets1/js/core/bootstrap.min.js"></script>
+    <script src="../../../assets1/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../../../assets1/js/plugins/smooth-scrollbar.min.js"></script>
+    <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="../../../assets1/js/argon-dashboard.min.js?v=2.1.0"></script>
+  </body>
+
+</html>

@@ -1,0 +1,285 @@
+<section class="course-area py-2">
+    <!-- Ajoutez cette partie pour la recherche et le filtre -->
+
+    <div class="search-filter-container">
+      <div class="container-fluid">
+        <div class="d-flex flex-nowrap align-items-center gap-2">
+          <!-- Barre de recherche -->
+          <div class="flex-grow-1 position-relative p-2 " style="margin-top: 20px !important;">
+            <div class="input-group" style="height: 38px;">
+              <span class="input-group-text bg-white border-end-0 h-100">
+                <i class="fas fa-search text-muted"></i>
+              </span>
+              <input type="text"
+                     class="form-control border-start-0 h-100"
+                     placeholder="Rechercher une formation..."
+                     [(ngModel)]="searchTerm"
+                     (input)="filterFormations()">
+            </div>
+          </div>
+
+          <!-- Sélecteur de département -->
+          <div style="min-width: 220px;">
+            <select class="form-select h-100" style="height: 38px;"
+                    [(ngModel)]="selectedDepartment"
+                    (change)="filterFormations()">
+              <option value="">Tous les départements</option>
+              <option value="TerreEtBiodiversite">🌱 Terre et Biodiversité</option>
+              <option value="Climat">🌤️ Climat</option>
+              <option value="VPRC">👥 VP</option>
+              <option value="Eau">💧 Eau</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="container position-relative px-lg-3">
+    <!-- Navigation -->
+    <button class="scroll-arrow scroll-arrow-left" (click)="scrollLeft()">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <!-- Conteneur scrollable -->
+    <div class="d-flex flex-nowrap overflow-hidden scroll-container mx-auto" #scrollContainer style="max-width: 95%;">
+      <!-- Cartes de formation -->
+      <div class="flex-shrink-0 px-2" *ngFor="let formation of formations" style="width: 280px;">
+        <div class="course-card h-100 border-0 rounded-lg overflow-hidden bg-white shadow-sm">
+          <!-- Image -->
+          <div class="position-relative" style="height: 120px;">
+            <img [src]="formation.photo || 'assets/images/back10.png'"
+                 [alt]="formation.titre || 'Formation'"
+                 class="img-fluid w-100 h-100"
+                 style="object-fit: cover;">
+            <span class="position-absolute top-2 end-2 bg-white text-primary small px-2 py-1 rounded-pill shadow-sm">
+              <i class="fas fa-tag me-1"></i> {{ formation.thematique || 'Général' }}
+            </span>
+          </div>
+
+          <!-- Contenu -->
+          <div class="p-3">
+            <div class="d-flex justify-content-between align-items-center mb-3" style="border-bottom: 1px solid #f0f0f0; padding-bottom: 0.5rem;">
+              <div class="d-flex align-items-center">
+                <div class="bg-light-primary rounded-circle p-2 me-2 d-flex align-items-center justify-content-center"
+                     style="width: 32px; height: 32px;">
+                  <i class="fas fa-chalkboard-teacher text-primary" style="font-size: 0.8rem;"></i>
+                </div>
+                <div>
+                  <small class="text-muted d-block" style="font-size: 0.7rem; line-height: 1.2;">Formateur</small>
+                  <span class="text-dark fw-semibold" style="font-size: 0.85rem;">
+                    {{ formation.responsable?.nom || 'Non spécifié' }}
+                  </span>
+                </div>
+              </div>
+
+              <button class="btn btn-sm btn-icon-text"
+                      style="background-color: rgba(60, 109, 154, 0.1); border: none;"
+                      (click)="openModal(formation)">
+                <i class="fas fa-info-circle me-1 text-primary"></i>
+                <span class="text-primary fw-medium" style="font-size: 0.8rem;">Détails</span>
+              </button>
+            </div>
+
+            <h3 class="h6 font-weight-bold mb-2" style="min-height: 2.5em;">{{ formation.titre }}</h3>
+
+            <p class="small text-muted mb-3" style="font-size: 0.85rem; min-height: 3.5em;">
+              {{ formation.description.slice(0, 80) || 'Description non disponible' }}...
+            </p>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="text-start">
+                <span class="badge bg-light text-dark me-1" style="font-size: 0.75rem;">
+                  <i class="far fa-clock text-primary"></i> {{ formation.duree || '2h' }}
+                </span>
+                <span class="badge bg-light text-dark" style="font-size: 0.75rem;">
+                  <i class="fas fa-star text-warning"></i> 4.5
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="scroll-arrow scroll-arrow-right" (click)="scrollRight()">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- Bouton Voir tout -->
+  <div class="text-center mt-4">
+    <a href="/user/formation" class="btn btn-simple rounded-pill px-4 py-2 shadow-sm" style="background-color: #7da8d1;">
+      <i class="fas fa-book-open me-2"></i> Voir toutes les formations
+    </a>
+  </div>
+</section>
+
+<!-- Modal -->
+<div #formationModal class="modal fade" id="formationModal" tabindex="-1" aria-labelledby="formationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg">
+      <!-- En-tête du modal -->
+      <div class="modal-header bg-gradient-primary text-white">
+        <div>
+          <h5 class="modal-title font-weight-bold mb-1" id="formationModalLabel">
+            <i class="fas fa-graduation-cap me-2"></i> Détails de la Formation
+          </h5>
+          <p class="small mb-0 opacity-75">{{ selectedFormation?.thematique }}</p>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Corps du modal -->
+      <div class="modal-body p-4">
+        <div class="container-fluid">
+          <div class="row g-4">
+            <!-- Colonne image -->
+            <div class="col-md-5">
+              <div class="rounded-lg overflow-hidden shadow-sm h-100">
+                <img [src]="selectedFormation?.photo || 'assets/images/back10.png'"
+                     [alt]="selectedFormation?.titre || 'Formation'"
+                     class="img-fluid w-100"
+                     style="height: 220px; object-fit: cover;">
+                <div class="p-3 bg-light">
+                  <div class="d-flex align-items-center mb-2">
+                    <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-2">
+                      <i class="fas fa-user-tie text-primary"></i>
+                    </div>
+                    <div>
+                      <p class="small text-muted mb-0">Formateur</p>
+                      <p class="mb-0 fw-semibold">{{ selectedFormation?.responsable?.nom || 'Non spécifié' }}</p>
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-between">
+                    <span class="badge bg-light text-dark">
+                      <i class="far fa-clock text-primary me-1"></i> {{ selectedFormation?.duree || 'Non spécifié' }}
+                    </span>
+                    <span class="badge bg-light text-dark">
+                      <i class="fas fa-star text-warning me-1"></i> 4.8
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Colonne détails -->
+            <div class="col-md-7">
+              <h2 class="h4 font-weight-bold text-dark mb-3" >{{ selectedFormation?.titre }}</h2>
+
+
+
+              <div class="mb-4">
+                <h6 class="text-uppercase small text-muted mb-2 fw-bold">Description</h6>
+                <p class="text-muted mb-0">
+                  {{ selectedFormation?.description?.slice(0, 320) }}
+                  <a *ngIf="showReadMore(selectedFormation)"
+                  class="text-primary fw-semibold"
+                  href="/DetailFormation/{{ selectedFormation?._id }}">
+                 Lire la suite...
+               </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pied du modal -->
+      <div class="modal-footer bg-light">
+        <ng-container *ngIf="isInscrit !== null; else loading">
+          <button *ngIf="!isInscrit"
+                  class="btn btn-primary rounded-pill px-4 py-2 fw-semibold"
+                  (click)="toggleParticipation()">
+            <i class="fas fa-play-circle me-2"></i> Commencer la formation
+          </button>
+
+
+        </ng-container>
+
+        <ng-template #loading>
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Chargement...</span>
+          </div>
+        </ng-template>
+
+        <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 ms-2" data-bs-dismiss="modal">
+          <i class="fas fa-times me-2"></i> Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .scroll-container {
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 1rem;
+  }
+  .scroll-container::-webkit-scrollbar { display: none; }
+
+  .scroll-arrow {
+    position: absolute;
+    top: 40%;
+    width: 36px;
+    height: 36px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    border: none;
+    z-index: 10;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .scroll-arrow:hover {
+    background: #7da8d1;
+    color: white;
+    transform: scale(1.1);
+  }
+  .scroll-arrow-left { left: 0; }
+  .scroll-arrow-right { right: 0; }
+
+  .course-card {
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05) !important;
+  }
+  .course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12) !important;
+  }
+
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #3c6d9a 0%, #2a4f6e 100%);
+  }
+
+  .modal-content {
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+
+  .modal-header {
+    border-bottom: none;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .modal-footer {
+    border-top: none;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .fw-semibold {
+    font-weight: 500;
+  }
+
+  .btn-outline-secondary {
+    border-color: #dee2e6;
+  }
+
+  .bg-light-primary {
+    background-color: rgba(60, 109, 154, 0.08);
+  }
+</style>

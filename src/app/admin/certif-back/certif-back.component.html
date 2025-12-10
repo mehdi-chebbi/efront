@@ -1,0 +1,306 @@
+<!-- Ajoute ceci dans ton index.html si ce n'est pas déjà fait -->
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<body style="background-color: white;">
+
+  <div
+    class="editor-toolbar p-3 bg-white border border-1 border-light-subtle rounded-4 shadow-sm mb-4"
+    style="background-image: url('../../../assets/8.png'); background-size: cover;">
+    <div class="d-flex flex-wrap align-items-center gap-3">
+
+      <!-- Section Typographie -->
+      <div class="d-flex align-items-center gap-3 me-2">
+        <!-- Sélecteur de taille de police -->
+        <div class="flex-grow-1" style="min-width: 120px;">
+          <div class="input-group input-group-sm has-validation">
+            <span class="input-group-text bg-light"><i
+                class="bi bi-textarea-t fs-6"></i></span>
+            <select class="form-select form-select-sm" id="fontSize"
+              [(ngModel)]="textSize" (change)="updateStyle()">
+              <option *ngFor="let sz of fontSizes" [value]="sz">{{ sz
+                }}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Sélecteur de style -->
+        <div class="flex-grow-1" style="min-width: 140px;">
+          <div class="input-group input-group-sm">
+            <span class="input-group-text bg-light"><i
+                class="bi bi-type-bold fs-6"></i></span>
+            <select class="form-select form-select-sm" id="fontStyle"
+              [(ngModel)]="textStyle" (change)="updateStyle()">
+              <option value="normal">Normal</option>
+              <option value="bold">Gras</option>
+              <option value="italic">Italique</option>
+              <option value="bold italic">Gras Italique</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Sélecteur de couleur -->
+        <div class="flex-grow-1" style="min-width: 150px;">
+          <div class="input-group input-group-sm">
+            <span class="input-group-text bg-light"><i
+                class="bi bi-palette fs-6"></i></span>
+            <select class="form-select form-select-sm" id="fontColor"
+              [(ngModel)]="textColor" (change)="updateStyle()">
+              <option *ngFor="let clr of colors" [value]="clr.value"
+                [style.color]="clr.value">
+                {{ clr.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Séparateur -->
+      <div class="vr opacity-75 d-none d-md-flex"></div>
+
+      <!-- Section Contenu -->
+      <div class="d-flex align-items-center gap-3 me-2">
+        <div *ngIf="selectedZone" class="reference-control">
+          <div class="input-group input-group-sm">
+
+            <select [(ngModel)]="selectedZone.reference"
+              class="form-select form-select-sm">
+              <option *ngFor="let ref of referenceOptions" [value]="ref">{{ ref
+                }}</option>
+            </select>
+            <button (click)="showAddReference = true"
+              style="background-color: #ffffff !important; color: rgb(157, 187, 159) !important; padding: 14px !important;"
+              class="btn btn-sm btn-success" type="button">
+              <i class="fas fa-plus"></i>
+            </button>
+
+          </div>
+
+          <!-- Formulaire d'ajout de référence -->
+          <div *ngIf="showAddReference" class="mt-2 d-flex gap-2">
+            <input [(ngModel)]="newReference" placeholder="Nouvelle référence"
+              class="form-control form-control-sm" />
+            <button (click)="addReference()" class="btn btn-sm btn-success">
+              <i class="bi bi-check-lg"></i>
+            </button>
+            <button (click)="cancelAddReference()"
+              class="btn btn-sm btn-outline-danger">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Séparateur -->
+      <div class="vr opacity-75 d-none d-md-flex"></div>
+
+      <!-- Section Éléments -->
+      <div class="d-flex flex-wrap gap-2">
+        <!-- Bouton Texte -->
+        <button
+          class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 px-3 py-2 rounded-3 hover-effect"
+          (click)="addTextZone()"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          title="Ajouter une zone de texte">
+          <i class="bi bi-text-paragraph"></i>
+          <span class="d-none d-lg-inline">Texte</span>
+        </button>
+
+        <!-- Bouton Logo -->
+        <input #logoInput type="file" accept="image/*" hidden
+          (change)="onLogoFileSelected($event)" />
+        <button
+          class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 px-3 py-2 rounded-3 hover-effect"
+          (click)="triggerLogoInput()"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          title="Ajouter un logo">
+          <i class="bi bi-image"></i>
+          <span class="d-none d-lg-inline">Logo</span>
+        </button>
+
+        <!-- Bouton Fond d'image -->
+        <div class="position-relative">
+          <input type="file" (change)="onImageSelected($event)" accept="image/*"
+            class="file-input visually-hidden" id="backgroundInput" />
+          <label for="backgroundInput"
+            class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 px-3 py-2 rounded-3 hover-effect"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="Changer l'image de fond">
+            <i class="bi bi-card-image"></i>
+            <span class="d-none d-lg-inline">Fond</span>
+          </label>
+        </div>
+
+        <!-- Bouton Supprimer -->
+        <button
+          class="btn btn-sm btn-outline-danger d-flex align-items-center gap-2 px-3 py-2 rounded-3 hover-effect"
+          (click)="removeBackground()"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          title="Supprimer l'image de fond">
+          <i class="bi bi-trash"></i>
+          <span class="d-none d-lg-inline">Supprimer</span>
+        </button>
+      </div>
+
+      <!-- Bouton Export -->
+      <button
+        class="btn btn-sm btn-primary d-flex align-items-center gap-2 px-3 py-2 rounded-3 ms-auto export-btn"
+        (click)="exportToutEnImagePNG()">
+        <i class="bi bi-download"></i>
+        <span>Exporter</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Style personnalisé amélioré -->
+  <style>
+    .editor-toolbar {
+      background: white;
+      border-color: #e0e0e0 !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .hover-effect {
+      transition: all 0.2s ease;
+      border: 1px solid #e0e0e0 !important;
+    }
+
+    .hover-effect:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      background-color: #f8f9fa !important;
+    }
+
+    .export-btn {
+      background: linear-gradient(to right, #4361ee, #3a0ca3);
+      border: none;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .export-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+      background: linear-gradient(to right, #3a56e0, #2f0a8a);
+    }
+
+    .input-group-sm .input-group-text {
+      padding: 0.25rem 0.5rem;
+      background-color: #f8f9fa !important;
+      border-color: #dee2e6 !important;
+    }
+
+    .form-select-sm {
+      background-position: right 0.5rem center;
+      padding: 0.25rem 0.5rem;
+      border-color: #dee2e6 !important;
+    }
+
+    .reference-control .form-control-sm {
+      max-width: 120px;
+    }
+
+    .vr {
+      height: 24px;
+      align-self: center;
+    }
+
+    .btn-sm i {
+      font-size: 0.9rem;
+    }
+  </style>
+  <div class="main-container">
+    <div class="model-sidebar">
+      <h4>Modèles pré-définis</h4>
+      <div class="model-list">
+        <div class="model-thumbnail"
+          *ngFor="let model of predefinedModels"
+          (click)="loadModel(model)">
+          <img [src]="model.image" alt="Modèle pré-définis" />
+        </div>
+      </div>
+
+      <h4>Modèles générés</h4>
+      <div class="model-list">
+        <div class="model-thumbnail"
+          *ngFor="let model of generatedModels"
+          (click)="loadModel(model)">
+          <img [src]="model.image" alt="Modèle généré" />
+        </div>
+      </div>
+    </div>
+
+    <!-- … ton code existant … -->
+
+    <div class="certificate" id="element-a-capturer"
+      [ngStyle]="{'background-image': bgImage ? 'url(' + bgImage + ')' : 'none'}">
+      <div *ngFor="let zone of textZones" class="text-zone"
+        [ngStyle]="{
+        'margin-top.px': zone.y,
+        'margin-left.px': zone.x,
+        'font-size': zone.fontSize,
+        'font-weight': zone.fontWeight,
+        'font-style': zone.fontStyle,
+        'white-space': 'pre-wrap',
+        'overflow': 'hidden',
+        'color': zone.color
+      }"
+        (mousedown)="onDrag($event, zone)"
+        (click)="selectZone(zone)">
+
+        <!-- Affichage d'un texte si zone.content n'est pas vide -->
+        <div *ngIf="zone.content" class="text-input">
+          <input [(ngModel)]="zone.content"
+            [readonly]="selectedZoneId !== zone.id"
+            [ngClass]="{'active': selectedZoneId === zone.id}"
+            class="text-input"
+            style="width: 900px !important;  height: auto !important; font-weight: bold; color: rgb(34, 33, 33) !important;" />
+        </div>
+
+        <!-- Affichage de l'image si zone.url est défini -->
+        <img *ngIf="zone.url" [src]="zone.url"
+          style=" padding: 15px !important; " [style.width.px]="zone.width"
+          [style.height.px]="zone.height" class="image-zone" />
+
+      </div>
+
+     <div>
+  <div *ngFor="let logo of currentLogos; let i = index" class="logo-container"
+       [style.left.px]="logo.x" [style.top.px]="logo.y">
+
+    <!-- Logo avec gestion du drag -->
+    <img
+      *ngIf="logo.url"
+      [src]="logo.url"
+      [style.width.px]="logo.width"
+      [style.height.px]="logo.height"
+      (mousedown)="startLogoDrag($event, logo)"
+      style="display: block; cursor: move;"
+      alt="Logo {{ i + 1 }}" />
+
+    <!-- Bouton de suppression positionné correctement -->
+    <button
+      *ngIf="logo.url"
+      (click)="removeLogo(logo); $event.stopPropagation()"
+      class="delete-btn"
+      [style.left.px]="logo.width! - 10"
+      [style.top.px]="-10">
+      ×
+    </button>
+
+    <!-- Poignée de redimensionnement positionnée correctement -->
+    <div *ngIf="logo.url"
+         class="resize-handle"
+         (mousedown)="startResize($event, logo); $event.stopPropagation()"
+         [style.left.px]="logo.width! - 8"
+         [style.top.px]="logo.height! - 8">
+    </div>
+  </div>
+</div>
+    </div>
+
+  </div>
+</body>

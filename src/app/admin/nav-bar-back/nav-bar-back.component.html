@@ -1,0 +1,191 @@
+<div class="container-fluid py-2 px-4 shadow-sm" style="padding: 20px; background-color: transparent !important; ">
+  <div class="d-flex justify-content-between align-items-center">
+    <!-- Breadcrumb -->
+    <div class="d-flex align-items-center">
+      <nav aria-label="breadcrumb" style="padding: 20px;">
+        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0">
+          <li class="breadcrumb-item text-sm">
+            <a class="opacity-75 text-white text-decoration-none" href="javascript:;">
+              <i class="fas fa-home me-1"></i> Accueil
+            </a>
+          </li>
+          <li class="breadcrumb-item text-sm text-white opacity-75 active" aria-current="page">
+
+          </li>
+        </ol>
+        <h5 class="font-weight-bolder text-white mb-0">
+          <i class="fas fa-tachometer-alt me-2"></i> Gestion Adminstateur
+
+        </h5>
+      </nav>
+    </div>
+
+    <!-- Search and Menu -->
+    <div class="d-flex align-items-center" style="margin-left: 130px ; margin-top: 30px;">
+      <!-- Search Bar -->
+      <div class="input-group input-group-sm rounded me-3 d-none d-md-flex" style="width: 250px;">
+        <span class="input-group-text bg-white border-0">
+          <i class="fas fa-search text-muted"></i>
+        </span>
+        <input type="text" class="form-control border-0 shadow-none" placeholder="Rechercher...">
+      </div>
+
+      <!-- Icons -->
+      <ul class="navbar-nav flex-row align-items-center">
+        <!-- Mobile Toggle -->
+        <li class="nav-item d-xl-none px-2 d-flex align-items-center">
+          <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+            <i class="fas fa-bars fa-lg"></i>
+          </a>
+        </li>
+
+
+        <!-- Notifications -->
+        <li class="nav-item dropdown px-2" [class.show]="isOpen" (document:click)="isOpen = false">
+          <a
+            class="nav-link text-white p-0 position-relative"
+            href="#"
+            role="button"
+            (click)="toggleDropdown($event)"
+          >
+            <i class="fas fa-bell fa-lg"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.5rem;">
+              {{notifications.length}}
+            </span>
+          </a>
+
+          <div
+          class="dropdown-menu dropdown-menu-end p-0 shadow"
+          [class.show]="isOpen"
+          (click)="$event.stopPropagation()"
+
+          style="width: 350px; max-height: 400px; overflow-y: auto;"
+        >
+          <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+            <h6 class="mb-0 fw-bold">Notifications</h6>
+            <span class="badge bg-primary rounded-pill">{{notifications.length}}</span>
+          </div>
+
+          <div *ngIf="notifications.length === 0" class="text-center p-4">
+            <i class="bi bi-bell fs-1 text-muted"></i>
+            <p class="text-muted mb-0">Aucune nouvelle notification</p>
+          </div>
+
+          <ul class="list-unstyled mb-0">
+            <li *ngFor="let notif of notifications" class="border-bottom">
+              <a class="dropdown-item py-3 px-3 d-flex align-items-start hover-bg-gray-100">
+                <img
+                [src]="notif.image ? 'http://192.168.2.139/uploads/' + notif.image : '../../../assets/images/avatar-1'"
+                class="rounded-circle me-3 notification-avatar"
+                alt="Profile image"
+              />
+                <div class="flex-grow-1">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <strong class="text-dark">{{notif.userName}} {{notif.userFirstName}}</strong>
+                    <small class="text-muted">{{notif.date | date:'shortTime'}}</small>
+                  </div>
+                  <p class="mb-0 text-dark">{{notif.message}}</p>
+                  <small *ngIf="notif.type" class="badge bg-info mt-1">{{notif.type}}</small>
+                </div>
+
+              </a>
+            </li>
+
+            <li *ngFor="let n of notifA" class="border-bottom">
+              <a class="dropdown-item py-3 px-3 d-flex align-items-start hover-bg-gray-100">
+                <img
+                  [src]="n.utilisateur.photo ? 'http://192.168.2.139/uploads/' + n.utilisateur.photo: '../../../assets/images/avatar-1'"
+                  class="rounded-circle me-3 notification-avatar"
+
+                  alt="Profile image"
+                />
+                <div class="flex-grow-1">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <strong class="text-dark">{{n.utilisateur.nom}} {{n.utilisateur.prenom}}</strong>
+                    <small class="text-muted">{{n.date | date:'shortTime'}}</small>
+                  </div>
+                  <p class="mb-0 text-dark">{{n.message}}</p>
+
+                </div>
+
+              </a>
+            </li>
+          </ul>
+
+          <div class="p-2 border-top text-center">
+            <a href="#" class="text-decoration-none">Voir toutes les notifications</a>
+          </div>
+        </div>
+
+        </li>
+
+        <!-- User Menu -->
+        <li class="nav-item dropdown ps-2" [class.show]="isUserDropdownOpen" (document:click)="isUserDropdownOpen = false">
+          <a
+            href="#"
+            class="nav-link text-white p-0 d-flex align-items-center"
+            id="userDropdown"
+            role="button"
+            (click)="toggleUserDropdown($event)"
+          >
+            <div class="avatar avatar-sm me-2">
+              <img [src]="user.photo ? 'http://192.168.2.139/uploads/' + user.photo  : '../../../assets/images/avatar-1'" class="rounded-circle me-1 notification-avatar" alt="Profile">
+            </div>
+            <span class="d-none d-md-inline">Admin</span>
+            <i class="fas fa-caret-down ms-1 d-none d-md-inline"></i>
+          </a>
+
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            [class.show]="isUserDropdownOpen"
+            (click)="$event.stopPropagation()"
+            aria-labelledby="userDropdown"
+          >
+            <li>
+              <a class="dropdown-item" routerLink="/admin/profil" style="color: black !important;">
+                <i class="fas fa-user-circle me-2"></i> Mon profil
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" style="color: black !important;">
+                <i class="fas fa-cog me-2"></i> Paramètres
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item" (click)="logout()" style="color: black !important;">
+                <i class="fas fa-sign-out-alt me-2"></i> Déconnexion
+              </a>
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- Bootstrap Bundle avec Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const dropdownToggle = document.getElementById('notificationDropdown');
+  const dropdownMenu = document.querySelector('[aria-labelledby="notificationDropdown"]');
+
+  let timeout;
+
+  function showDropdown() {
+    clearTimeout(timeout);
+    new bootstrap.Dropdown(dropdownToggle).show();
+  }
+
+  function hideDropdown() {
+    timeout = setTimeout(() => {
+      new bootstrap.Dropdown(dropdownToggle).hide();
+    }, 300); // petit délai pour éviter les fermetures instantanées
+  }
+
+  dropdownToggle.addEventListener('mouseenter', showDropdown);
+  dropdownToggle.addEventListener('mouseleave', hideDropdown);
+  dropdownMenu.addEventListener('mouseenter', showDropdown);
+  dropdownMenu.addEventListener('mouseleave', hideDropdown);
+</script>
+

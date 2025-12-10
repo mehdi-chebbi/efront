@@ -1,0 +1,690 @@
+<!--
+=========================================================
+* Argon Dashboard 3 - v2.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+* Copyright 2024 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76"
+      href="../../../assets1/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../../../assets1/img/favicon.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <title>
+      Argon Dashboard 3 by Creative Tim
+    </title>
+    <!--     Fonts and icons     -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" />
+    <!-- Nucleo Icons -->
+    <link
+      href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" />
+    <link
+      href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js"
+      crossorigin="anonymous"></script>
+    <!-- CSS Files -->
+    <link id="pagestyle"
+      href="../../../assets1/css/argon-dashboard.css?v=2.1.0" />
+  </head>
+
+  <body class="g-sidenav-show   bg-gray-100">
+   <div class="min-height-200 bg-dark position-absolute"
+    style="width: 1350px; background-image: url('../../../assets/ert.png') ; background-size: cover; "></div>
+      <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+        <app-asid-back></app-asid-back>
+      </aside>
+    <main class="main-content position-relative border-radius-lg ">
+      <!-- Navbar -->
+      <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+        <app-nav-bar-back></app-nav-bar-back>
+      </nav>
+      <!-- End Navbar -->
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <section class="py-5 bg-light" style="background-color: transparent !important;">
+              <div class="container-fluid">
+                <div class="row justify-content-center">
+                  <div class="col-lg-10">
+                    <div class="formation-details-box bg-white rounded-lg shadow-lg p-4 p-md-5">
+                      <div class="row" *ngIf="formation">
+                        <!-- Colonne de gauche (Image et informations de base) -->
+                        <div class="col-md-4 mb-4 mb-md-0">
+                          <!-- Image de la formation -->
+                          <img [src]="formation?.photo" alt="Formation Image"
+                            class="img-fluid rounded-lg shadow-sm mb-4"
+                            style="border-radius: 10%;"/>
+
+                          <!-- Titre de la formation -->
+                          <h2 class="h4 font-weight-bold text-primary mb-3">
+                            {{ formation?.titre }}
+                          </h2>
+
+                          <!-- Thématique -->
+                          <p class="text-muted mb-2">
+                            <strong>Thématique:</strong> {{ formation?.thematique }}
+                          </p>
+
+
+
+
+                          <!-- Ressources -->
+                          <div class="text-muted mb-2">
+                            <strong>Ressources:</strong>
+                            <ul class="list-unstyled">
+                              <li *ngFor="let ressource of formation.ressource" class="mb-2">
+                                <a [href]="ressource" target="_blank" download
+                                  class="text-decoration-none text-dark">
+                                  <!-- Icône selon le type de fichier -->
+                                  <ng-container *ngIf="ressource.endsWith('.pdf'); else txtIcon">
+                                    <i class="fas fa-file-pdf text-danger me-2"></i>
+                                  </ng-container>
+                                  <ng-template #txtIcon>
+                                    <ng-container *ngIf="ressource.endsWith('.txt')">
+                                      <i class="fas fa-file-alt text-primary me-2"></i>
+                                    </ng-container>
+                                  </ng-template>
+                                  <!-- Nom du fichier -->
+                                  {{ ressource.split('/').pop() }}
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+
+                          <!-- Responsable -->
+                          <p class="text-muted mb-3">
+                            <strong>Responsable:</strong> {{ formation.responsable?.nom }}
+                          </p>
+
+                          <!-- Description -->
+                          <div class="mb-4">
+                            <strong>Description:</strong>
+                            <p class="text-muted" style="font-size: 14px; text-align: justify;">
+                              {{ formation.description }}
+                            </p>
+                          </div>
+                           <h5>Video d'introduction</h5>
+                          <video
+                          [src]="formation.videoIntroduction"
+                          controls
+                          class="img-fluid rounded-lg shadow-sm mb-4"
+                          style="border-radius: 10%; width: 100%; max-height: 400px;"
+                        ></video>
+                        </div>
+
+                        <!-- Colonne de droite (Modules et leçons) -->
+                        <div class="col-md-8">
+                          <!-- Titre des modules -->
+                          <h3 class="h5 font-weight-bold mb-4">Les Modules de La Formation</h3>
+
+                          <!-- Liste des modules -->
+                          <div *ngFor="let module of formation.modules" class="module-container mb-3">
+                            <div class="card shadow-sm">
+                              <!-- En-tête du module -->
+                              <div class="card-header bg-light d-flex justify-content-between align-items-center cursor-pointer"
+                                (click)="toggleLecons(module)"
+                                [attr.aria-expanded]="selectedModule === module ? 'true' : 'false'">
+                                <h5 class="module-title mb-0">{{ module.titre }}</h5>
+                                <span class="toggle-icon">
+                                  {{ selectedModule === module ? '▼' : '►' }}
+                                </span>
+                              </div>
+
+                              <!-- Corps du module (leçons) -->
+                              <div class="card-body p-0"
+                                [ngClass]="{'d-block': selectedModule === module, 'd-none': selectedModule !== module}">
+                                <ul class="list-group list-group-flush">
+                                  <li *ngFor="let lecon of module.lecons" class="list-group-item lecon-item">
+                                    <a class="lecon-link d-block p-3 text-decoration-none" href="#">
+                                      <span class="fw-bold text-dark" style="font-size: 14px;">
+                                        Lesson: {{ lecon.titre }}
+                                      </span>
+                                      <span class="badge bg-primary ms-2" style="font-size: 12px;">
+                                        {{ lecon.type }}
+                                      </span>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+
+
+                          <!-- Section Quiz -->
+                          <div class="mt-5">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                              <h3 class="h5 font-weight-bold mb-0">Quiz</h3>
+                              <button class="btn btn-sm btn-outline-primary"
+                                [routerLink]="['/QuizFormations', formationId]"
+                                title="Ajouter Quiz">
+                                <i class="fas fa-plus me-2"></i> Ajouter un Quiz
+                              </button>
+                            </div>
+
+                            <!-- Liste des quiz -->
+                            <div >
+                              <ul class="list-unstyled mb-0">
+                                <li *ngFor="let quiz of quizzes" class="mb-3 p-3 bg-white rounded shadow-sm">
+                                  <div class="d-flex align-items-center justify-content-between">
+                                    <!-- Titre du quiz avec icône -->
+                                    <div class="d-flex align-items-center">
+                                      <!-- Icône colorée pour le quiz -->
+                                      <svg class="w-6 h-6 text-primary me-2" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                      </svg>
+                                      <a (click)="goToQuizDetail(quiz?._id,formationId)"
+                                        class="text-dark text-decoration-none hover:text-primary fw-bold">
+                                        {{ quiz?.titre }}
+                                      </a>
+                                    </div>
+
+                                    <!-- Actions (Nombre de questions et suppression) -->
+                                    <div class="d-flex align-items-center gap-3">
+                                      <!-- Icône pour le nombre de questions -->
+                                      <div class="d-flex align-items-center text-muted">
+                                        <svg class="w-5 h-5 text-success me-2" fill="none" stroke="currentColor"
+                                          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                        </svg>
+                                        <span class="text-muted" style="font-size: 14px;">
+                                          {{ quiz?.questions.length }} Questions
+                                        </span>
+                                      </div>
+
+                                      <!-- Bouton de suppression avec icône colorée -->
+                                      <button class="btn btn-sm btn-outline-danger d-flex align-items-center"
+                                        (click)="deleteQuiz(quiz?._id)">
+                                        <i class="fas fa-trash text-danger me-2"></i>
+                                        Supprimer
+                                      </button>
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+
+ <button class="btn btn-sm btn-outline-primary"
+          [routerLink]="['/certif',formationId]"
+            title="Ajouter Quiz">
+            <i class="fas fa-plus me-2"></i> Ajouter Un Model de  Certification
+          </button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </section>
+
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4">
+
+              <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive p-0">
+                  <table
+                    class="table align-items-center justify-content-center mb-0">
+                    <thead>
+                      <tr>
+                        <th
+                          class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Project</th>
+                        <th
+                          class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Budget</th>
+                        <th
+                          class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
+                        <th
+                          class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Completion</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2">
+                            <div>
+                              <img
+                                src="../../../assets1/img/small-logos/logo-spotify.svg"
+                                class="avatar avatar-sm rounded-circle me-2"
+                                alt="spotify">
+                            </div>
+                            <div class="my-auto">
+                              <h6 class="mb-0 text-sm">Spotify</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="text-sm font-weight-bold mb-0">$2,500</p>
+                        </td>
+                        <td>
+                          <span class="text-xs font-weight-bold">working</span>
+                        </td>
+                        <td class="align-middle text-center">
+                          <div
+                            class="d-flex align-items-center justify-content-center">
+                            <span
+                              class="me-2 text-xs font-weight-bold">60%</span>
+                            <div>
+                              <div class="progress">
+                                <div class="progress-bar bg-gradient-info"
+                                  role="progressbar" aria-valuenow="60"
+                                  aria-valuemin="0" aria-valuemax="100"
+                                  style="width: 60%;"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="align-middle">
+                          <button class="btn btn-link text-secondary mb-0">
+                            <i class="fa fa-ellipsis-v text-xs"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2">
+                            <div>
+                              <img
+                                src="../../../assets1/img/small-logos/logo-invision.svg"
+                                class="avatar avatar-sm rounded-circle me-2"
+                                alt="invision">
+                            </div>
+                            <div class="my-auto">
+                              <h6 class="mb-0 text-sm">Invision</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="text-sm font-weight-bold mb-0">$5,000</p>
+                        </td>
+                        <td>
+                          <span class="text-xs font-weight-bold">done</span>
+                        </td>
+                        <td class="align-middle text-center">
+                          <div
+                            class="d-flex align-items-center justify-content-center">
+                            <span
+                              class="me-2 text-xs font-weight-bold">100%</span>
+                            <div>
+                              <div class="progress">
+                                <div class="progress-bar bg-gradient-success"
+                                  role="progressbar" aria-valuenow="100"
+                                  aria-valuemin="0" aria-valuemax="100"
+                                  style="width: 100%;"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="align-middle">
+                          <button class="btn btn-link text-secondary mb-0"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-v text-xs"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2">
+                            <div>
+                              <img
+                                src="../../../assets1/img/small-logos/logo-jira.svg"
+                                class="avatar avatar-sm rounded-circle me-2"
+                                alt="jira">
+                            </div>
+                            <div class="my-auto">
+                              <h6 class="mb-0 text-sm">Jira</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="text-sm font-weight-bold mb-0">$3,400</p>
+                        </td>
+                        <td>
+                          <span class="text-xs font-weight-bold">canceled</span>
+                        </td>
+                        <td class="align-middle text-center">
+                          <div
+                            class="d-flex align-items-center justify-content-center">
+                            <span
+                              class="me-2 text-xs font-weight-bold">30%</span>
+                            <div>
+                              <div class="progress">
+                                <div class="progress-bar bg-gradient-danger"
+                                  role="progressbar" aria-valuenow="30"
+                                  aria-valuemin="0" aria-valuemax="30"
+                                  style="width: 30%;"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="align-middle">
+                          <button class="btn btn-link text-secondary mb-0"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-v text-xs"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2">
+                            <div>
+                              <img
+                                src="../../../assets1/img/small-logos/logo-slack.svg"
+                                class="avatar avatar-sm rounded-circle me-2"
+                                alt="slack">
+                            </div>
+                            <div class="my-auto">
+                              <h6 class="mb-0 text-sm">Slack</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="text-sm font-weight-bold mb-0">$1,000</p>
+                        </td>
+                        <td>
+                          <span class="text-xs font-weight-bold">canceled</span>
+                        </td>
+                        <td class="align-middle text-center">
+                          <div
+                            class="d-flex align-items-center justify-content-center">
+                            <span
+                              class="me-2 text-xs font-weight-bold">0%</span>
+                            <div>
+                              <div class="progress">
+                                <div class="progress-bar bg-gradient-success"
+                                  role="progressbar" aria-valuenow="0"
+                                  aria-valuemin="0" aria-valuemax="0"
+                                  style="width: 0%;"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="align-middle">
+                          <button class="btn btn-link text-secondary mb-0"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-v text-xs"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2">
+                            <div>
+                              <img
+                                src="../../../assets1/img/small-logos/logo-webdev.svg"
+                                class="avatar avatar-sm rounded-circle me-2"
+                                alt="webdev">
+                            </div>
+                            <div class="my-auto">
+                              <h6 class="mb-0 text-sm">Webdev</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="text-sm font-weight-bold mb-0">$14,000</p>
+                        </td>
+                        <td>
+                          <span class="text-xs font-weight-bold">working</span>
+                        </td>
+                        <td class="align-middle text-center">
+                          <div
+                            class="d-flex align-items-center justify-content-center">
+                            <span
+                              class="me-2 text-xs font-weight-bold">80%</span>
+                            <div>
+                              <div class="progress">
+                                <div class="progress-bar bg-gradient-info"
+                                  role="progressbar" aria-valuenow="80"
+                                  aria-valuemin="0" aria-valuemax="80"
+                                  style="width: 80%;"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="align-middle">
+                          <button class="btn btn-link text-secondary mb-0"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-v text-xs"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2">
+                            <div>
+                              <img
+                                src="../../../assets1/img/small-logos/logo-xd.svg"
+                                class="avatar avatar-sm rounded-circle me-2"
+                                alt="xd">
+                            </div>
+                            <div class="my-auto">
+                              <h6 class="mb-0 text-sm">Adobe XD</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="text-sm font-weight-bold mb-0">$2,300</p>
+                        </td>
+                        <td>
+                          <span class="text-xs font-weight-bold">done</span>
+                        </td>
+                        <td class="align-middle text-center">
+                          <div
+                            class="d-flex align-items-center justify-content-center">
+                            <span
+                              class="me-2 text-xs font-weight-bold">100%</span>
+                            <div>
+                              <div class="progress">
+                                <div class="progress-bar bg-gradient-success"
+                                  role="progressbar" aria-valuenow="100"
+                                  aria-valuemin="0" aria-valuemax="100"
+                                  style="width: 100%;"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="align-middle">
+                          <button class="btn btn-link text-secondary mb-0"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-v text-xs"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+    <div class="fixed-plugin">
+      <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
+        <i class="fa fa-cog py-2"> </i>
+      </a>
+      <div class="card shadow-lg">
+        <div class="card-header pb-0 pt-3 ">
+          <div class="float-start">
+            <h5 class="mt-3 mb-0">Argon Configurator</h5>
+            <p>See our dashboard options.</p>
+          </div>
+          <div class="float-end mt-4">
+            <button
+              class="btn btn-link text-dark p-0 fixed-plugin-close-button">
+              <i class="fa fa-close"></i>
+            </button>
+          </div>
+          <!-- End Toggle Button -->
+        </div>
+        <hr class="horizontal dark my-1">
+        <div class="card-body pt-sm-3 pt-0 overflow-auto">
+          <!-- Sidebar Backgrounds -->
+          <div>
+            <h6 class="mb-0">Sidebar Colors</h6>
+          </div>
+          <a href="javascript:void(0)" class="switch-trigger background-color">
+            <div class="badge-colors my-2 text-start">
+              <span class="badge filter bg-gradient-primary active"
+                data-color="primary" onclick="sidebarColor(this)"></span>
+              <span class="badge filter bg-gradient-dark" data-color="dark"
+                onclick="sidebarColor(this)"></span>
+              <span class="badge filter bg-gradient-info" data-color="info"
+                onclick="sidebarColor(this)"></span>
+              <span class="badge filter bg-gradient-success"
+                data-color="success" onclick="sidebarColor(this)"></span>
+              <span class="badge filter bg-gradient-warning"
+                data-color="warning" onclick="sidebarColor(this)"></span>
+              <span class="badge filter bg-gradient-danger" data-color="danger"
+                onclick="sidebarColor(this)"></span>
+            </div>
+          </a>
+          <!-- Sidenav Type -->
+          <div class="mt-3">
+            <h6 class="mb-0">Sidenav Type</h6>
+            <p class="text-sm">Choose between 2 different sidenav types.</p>
+          </div>
+          <div class="d-flex">
+            <button class="btn bg-gradient-primary w-100 px-3 mb-2 active me-2"
+              data-class="bg-white" onclick="sidebarType(this)">White</button>
+            <button class="btn bg-gradient-primary w-100 px-3 mb-2"
+              data-class="bg-default" onclick="sidebarType(this)">Dark</button>
+          </div>
+          <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav
+            type just on desktop view.</p>
+          <!-- Navbar Fixed -->
+          <div class="d-flex my-3">
+            <h6 class="mb-0">Navbar Fixed</h6>
+            <div class="form-check form-switch ps-0 ms-auto my-auto">
+              <input class="form-check-input mt-1 ms-auto" type="checkbox"
+                id="navbarFixed" onclick="navbarFixed(this)">
+            </div>
+          </div>
+          <hr class="horizontal dark my-sm-4">
+          <div class="mt-2 mb-5 d-flex">
+            <h6 class="mb-0">Light / Dark</h6>
+            <div class="form-check form-switch ps-0 ms-auto my-auto">
+              <input class="form-check-input mt-1 ms-auto" type="checkbox"
+                id="dark-version" onclick="darkMode(this)">
+            </div>
+          </div>
+          <a class="btn bg-gradient-dark w-100"
+            href="https://www.creative-tim.com/product/argon-dashboard">Free
+            Download</a>
+          <a class="btn btn-outline-dark w-100"
+            href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard">View
+            documentation</a>
+          <div class="w-100 text-center">
+            <a class="github-button"
+              href="https://github.com/creativetimofficial/argon-dashboard"
+              data-icon="octicon-star" data-size="large" data-show-count="true"
+              aria-label="Star creativetimofficial/argon-dashboard on GitHub">Star</a>
+            <h6 class="mt-3">Thank you for sharing!</h6>
+            <a
+              href="https://twitter.com/intent/tweet?text=Check%20Argon%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fargon-dashboard"
+              class="btn btn-dark mb-0 me-2" target="_blank">
+              <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
+            </a>
+            <a
+              href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/argon-dashboard"
+              class="btn btn-dark mb-0 me-2" target="_blank">
+              <i class="fab fa-facebook-square me-1" aria-hidden="true"></i>
+              Share
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="../../../assets1/js/core/popper.min.js"></script>
+    <script src="../../../assets1/js/core/bootstrap.min.js"></script>
+    <script src="../../../assets1/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../../../assets1/js/plugins/smooth-scrollbar.min.js"></script>
+    <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="../../../assets1/js/argon-dashboard.min.js?v=2.1.0"></script>
+  </body>
+
+</html>

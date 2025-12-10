@@ -1,0 +1,172 @@
+/* Layout général */
+.main-container {
+  display: flex;
+}
+
+/* Toolbar améliorée */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+select, .file-input {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  font-size: 14px;
+  min-width: 120px;
+}
+
+/* Boutons stylés */
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn.primary {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn.primary:hover {
+  background-color: #2980b9;
+}
+
+.btn.danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn.danger:hover {
+  background-color: #c0392b;
+}
+#element-a-capturer {
+  padding: 10px; /* Évite que le texte touche les bords */
+  overflow: visible !important; /* Empêche la coupure des textes */
+  white-space: normal !important; /* Évite que les longues lignes soient tronquées */
+}
+
+
+/* Certificat */
+.certificate {
+  position: relative;
+  width: 80%;
+  height: 700px;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  margin: 1rem auto;
+  border: 2px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+
+/* Sidebar */
+.model-sidebar {
+  width: 220px;
+  background: #f7f9fc;
+  border-right: 1px solid #ddd;
+  padding: 1rem;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  position: sticky;
+  top: 60px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+}
+
+.model-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.model-thumbnail img {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+
+.model-thumbnail img:hover {
+  transform: scale(1.05);
+}
+
+
+
+/* Zone de texte modifiable */
+.text-zone {
+  position: absolute;
+  cursor: move;
+}
+
+.text-zone input {
+  background: transparent;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  color: #2c3e50;
+  padding: 2px 4px;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: inherit;
+  width: max-content;
+}
+
+.text-zone input:not(.active) {
+  pointer-events: none;
+}
+
+.logo-container {
+  position: absolute;
+  display: inline-block;
+}
+
+.delete-btn {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+}
+
+.resize-handle {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: #4285f4;
+  border-radius: 50%;
+  cursor: nwse-resize;
+  z-index: 10;
+  border: 2px solid white;
+  box-sizing: border-box;
+}

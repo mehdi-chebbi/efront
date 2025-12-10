@@ -1,0 +1,95 @@
+.compact-navbar {
+  background: linear-gradient(to right, #ffffff, #003366);
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+}
+
+.compact-logo {
+  height: 28px;
+  transition: transform 0.2s;
+}
+
+.compact-logo:hover {
+  transform: scale(1.05);
+}
+
+.compact-nav .nav-link {
+  color: white !important;
+  font-size: 0.75rem;
+  padding: 0.4rem 0.8rem !important;
+  margin: 0 0.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.compact-nav .nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.compact-user .nav-link {
+  padding: 0.2rem 0.5rem !important;
+}
+
+.compact-profile {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+
+
+.dropdown-menu.show {
+  display: block;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Style amélioré pour le dropdown */
+.compact-dropdown {
+  min-width: 160px;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  margin-top: 5px; /* Espace entre le bouton et le menu */
+}
+
+.compact-dropdown .dropdown-item {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.compact-dropdown .dropdown-item:hover {
+  background-color: #f8f9fa;
+  color: #003366;
+}
+
+/* Version mobile */
+@media (max-width: 992px) {
+  .compact-navbar {
+    padding: 0.2rem 0;
+  }
+
+  .navbar-collapse {
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+  }
+
+  .compact-nav .nav-item {
+    margin: 0.1rem 0;
+  }
+}
