@@ -1,0 +1,126 @@
+# ========== FRONT ==========
+# dependencies
+front/node_modules
+front/.pnp
+front/.pnp.*
+front/.yarn/*
+!front/.yarn/patches
+!front/.yarn/plugins
+!front/.yarn/releases
+!front/.yarn/versions
+
+# testing
+front/coverage
+
+# next.js
+front/.next/
+front/out/
+
+# production
+front/build
+
+# misc
+front/.DS_Store
+front/*.pem
+
+# debug
+front/npm-debug.log*
+front/yarn-debug.log*
+front/yarn-error.log*
+front/.pnpm-debug.log*
+
+# env files
+front/.env*
+
+# vercel
+front/.vercel
+
+# typescript
+front/*.tsbuildinfo
+front/next-env.d.ts
+
+
+
+# ========== BACK ==========
+# dependencies
+back/node_modules
+back/.pnp
+back/.pnp.*
+back/.yarn/*
+!back/.yarn/patches
+!back/.yarn/plugins
+!back/.yarn/releases
+!back/.yarn/versions
+
+# testing
+back/coverage
+
+# next.js
+back/.next/
+back/out/
+
+# production
+back/build
+
+# misc
+back/.DS_Store
+back/*.pem
+
+# debug
+back/npm-debug.log*
+back/yarn-debug.log*
+back/yarn-error.log*
+back/.pnpm-debug.log*
+
+# env files
+back/.env*
+
+# vercel
+back/.vercel
+
+# typescript
+back/*.tsbuildinfo
+back/next-env.d.ts
+
+
+
+# ========== CHAT ==========
+# dependencies
+chat/node_modules
+chat/.pnp
+chat/.pnp.*
+chat/.yarn/*
+!chat/.yarn/patches
+!chat/.yarn/plugins
+!chat/.yarn/releases
+!chat/.yarn/versions
+
+# testing
+chat/coverage
+
+# next.js
+chat/.next/
+chat/out/
+
+# production
+chat/build
+
+# misc
+chat/.DS_Store
+chat/*.pem
+
+# debug
+chat/npm-debug.log*
+chat/yarn-debug.log*
+chat/yarn-error.log*
+chat/.pnpm-debug.log*
+
+# env files
+chat/.env*
+
+# vercel
+chat/.vercel
+
+# typescript
+chat/*.tsbuildinfo
+chat/next-env.d.ts
