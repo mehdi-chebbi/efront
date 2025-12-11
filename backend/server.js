@@ -42,8 +42,10 @@ const pool = new Pool({
 
 // Middleware
 app.use(cors({
-  origin: 'http://192.168.2.126',
-  credentials: true
+  origin: ['http://192.168.2.126', 'http://192.168.2.125'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(cookieParser());
@@ -243,10 +245,10 @@ app.post('/api/auth/register', async (req, res) => {
       { expiresIn: '7d' }
     );
 
-    // Set cookie
     res.cookie('token', token, {
       httpOnly: true,
       secure: false, // Set to true in production with HTTPS
+      sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
 
@@ -298,9 +300,9 @@ app.post('/api/auth/login', async (req, res) => {
     res.cookie('token', token, {
       httpOnly: true,
       secure: false, // Set to true in production with HTTPS
+      sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
-
     // Log login
     await pool.query('INSERT INTO login_logs (user_id) VALUES ($1)', [user.id]);
 
@@ -324,7 +326,7 @@ app.post('/api/auth/login', async (req, res) => {
 });
 
 app.post('/api/auth/logout', (req, res) => {
-  res.clearCookie('token');
+  res.clearCookie('token', { path: '/', sameSite: 'none' });
   res.json({ success: true, message: 'Logout successful' });
 });
 
@@ -415,6 +417,7 @@ app.get('/api/auth/google/callback', async (req, res) => {
     res.cookie('token', token, {
       httpOnly: true,
       secure: false, // Set to true in production with HTTPS
+      sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
 
@@ -619,10 +622,10 @@ app.get('/api/auth/microsoft/callback', async (req, res) => {
       { expiresIn: '7d' }
     );
 
-    // Set cookie and redirect
     res.cookie('token', token, {
       httpOnly: true,
       secure: false, // Set to true in production with HTTPS
+      sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
 
@@ -706,6 +709,7 @@ app.post('/api/auth/microsoft/token', async (req, res) => {
     res.cookie('token', token, {
       httpOnly: true,
       secure: false, // Set to true in production with HTTPS
+      sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
 
